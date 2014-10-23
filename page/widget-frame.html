@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Mobile UI--移动界面我做主</title>
+<link href="../css/reset.css" rel="stylesheet" type="text/css">
+<link href="../css/page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script>
+    $(function(){
+        $("div.nav h3").click(function(){
+            if(!$(this).hasClass("on")){console.log(11);
+                $(this).siblings("h3.on").removeClass("on").end().siblings("ul.on").slideUp().removeClass("on");
+                $(this).addClass("on").next("ul").slideDown().addClass("on");
+            }
+        });
+        window.location.h
+    });
+</script>
+</head>
+
+<body>
+<div class="wrapper"> 
+	<div class="header">
+    	<h1><a href="../index.html" title="MUI移动界面我做主"><img src="../css/images/pagelogo.png" alt="MUI移动界面我做主" width="290" height="92"></a></h1>
+    	<div class="nav">
+            <ul>
+                <li class="border-left-none"><span><a href="../docs/index.html" target="_blank">文档</a></span></li>
+                <li class="on"><span><a href="widget.html">控件</a></span></li>
+                <li><span><a href="module.html">组件</a></span></li>
+                <li><span><a href="theme.html">皮肤</a></span></li>
+                <li><span><a href="case.html">案例</a></span></li>
+                <li class="border-right-none"><span><a href="../app/index.html" target="_blank">创建APP</a></span></li>
+            </ul>
+		</div>
+    </div>
+    
+  <div class="ad"><img src="../css/images/pagead1.jpg" width="950" height="125"></div>
+  <div class="content">
+  	<div class="title">
+    	<p><a href="../index.html">首页</a> > <a href="widget.html">控件</a> > 标题栏</p>
+    </div>
+    <div class="forme">
+    
+			<div class="nav">
+                <h3 class="on"><img src="../css/images/icon1.gif">工具栏</h3>
+                <ul class="on">
+					<li class="on"><a href="#">标题栏</a></li>
+                    <li><a href="#">底部栏</a></li>
+              	</ul>
+                <h3><img src="../css/images/icon2.gif">列表</h3>
+                <ul>
+					<li><a href="#">标题栏</a></li>
+                    <li><a href="#">底部栏</a></li>
+              	</ul>
+                <h3><img src="../css/images/icon3.gif">按钮</h3>
+                <ul>
+					<li><a href="#">标题栏</a></li>
+                    <li><a href="#">底部栏</a></li>
+              	</ul>
+                <h3><img src="../css/images/icon4.gif">表单输入</h3>
+                <h3><img src="../css/images/icon5.gif">布局排版</h3>
+                <h3><img src="../css/images/icon6.gif">导航展示</h3>
+                <h3><img src="../css/images/icon7.gif">日期选择</h3>
+                <h3><img src="../css/images/icon8.gif">基本元素</h3>
+    		</div>
+            <div class="tabcon">
+            	<div class="mobilebg"></div>
+<div class="widget-info">
+                	<h3>标题栏</h3>
+                    <p>文字描述文字描述文字描述文字描述文字描述文字描述描述文字描述文字描述文字描述文字描述文字描述文字描述描述文字描述文字描述文字描述文字描述文字描述文字描述描述文字描述文字描述文字描述文字描述文字。</p>
+   		    <span><a href="#">详细说明</a></span>
+            <a href="#" class="downwidget"><img src="../css/images/downico.png">下载控件</a>
+          </div>
+            </div>    
+    		
+        <div class="clear"></div>
+    </div>
+  </div>
+  <div class="footer">Copyright © 1998 - 2012 SI-TECH UID. All Rights Reserved. </div>
+</div>
+</body>
+</html>

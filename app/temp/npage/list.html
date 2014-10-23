@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="user-scalable=no, width=320,height=480, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Mobile UI - 列表页面</title>
+<link rel="stylesheet" href="../nresources/jqthemes/default/jquery.mobile.css">
+<script src="../njs/jquery.js"></script>
+<script src="../njs/default-1.0rc2.js"></script>
+<script src="../njs/jquery.mobile.js"></script>
+<script class="mui" src="../njs/jquery.ui.core.js"></script>
+<script class="mui" src="../njs/jquery.ui.widget.js"></script>
+<script class="mui" src="../njs/jquery.ui.mouse.js"></script>
+<script class="mui" src="../njs/jquery.ui.sortable.js"></script>
+<script id="is4" src="../njs/iscroll.js"></script>
+<script class="mui" src="../../../js/kibo.js"></script>
+<script class="mui" src="../../../js/action.js"></script>
+</head>
+
+<body>
+<div data-role="page">
+    <div data-role="header" data-theme="h"  wt="jheader">
+        <h1>列表页</h1>
+    </div>
+    <div data-role="content" wt="content">
+        <h1 wt="h1" style="font-size: 16px;">标题</h1>
+        <ul data-role="listview" data-inset="true" wt="iconslv">
+            <li data-theme="c" mui="iconlvitem">
+                <a href="#"><img mui="image" src="../nresources/images/icon/gf.png" class="ui-li-icon ui-li-thumb">France</a>
+            </li>
+            <li data-theme="c" mui="iconlvitem">
+                <a href="#"><img mui="image" src="../nresources/images/icon/de.png" class="ui-li-icon ui-li-thumb">Germany</a>
+            </li>
+        </ul>
+        <ul wt="dividerlv" data-role="listview" data-inset="true" data-theme="d" data-dividertheme="e">
+            <li data-role="list-divider" mui="divider">A</li>
+            <li data-theme="d" mui="linklvitem">
+                <a href="#">Apple</a>
+            </li>
+            <li data-theme="d" mui="linklvitem">
+                <a href="#">amazon</a>
+            </li>
+            <li data-theme="d" mui="linklvitem">
+                <a href="#">alibaba</a>
+            </li>
+        </ul>
+    </div>
+    <div data-role="footer" wt="jfooter">
+        <h4 wt='h1'>底部工具栏</h4>
+    </div>
+</div>
+</body>
+</html>

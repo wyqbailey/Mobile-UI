@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Mobile UI--移动界面我做主</title>
+<link href="../css/reset.css" rel="stylesheet" type="text/css">
+<link href="../css/page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("ul.list-module a").click(function(){
+            var h = "../app/temp/npage/"+$(this).attr("href");
+            var top = ($(window).height()-$("#iphone").height())/2;
+            var left = ($(window).width()-$("#iphone").width())/2;
+            $("#iphoneframe").attr("src",h);
+            $("div.overlay").length || $("<div class='overlay'></div>").appendTo("body");
+            $("div.overlay").css({display:"block",height:$("body").height()}).fadeIn();
+            $("#iphone").fadeIn().css({display:"block",top:top,left:left});
+            //$("div.changeview").fadeIn().css({display:"block"});
+            return false;
+        });
+        $("div.changeview").click(function(e){
+            $("#iphone,#iphoneframe").toggleClass("rotate");
+            e.stopPropagation();
+        });
+        $("body").click(function(){
+            $("#iphone,div.overlay,div.changeview").fadeOut();
+        });
+    });
+</script>
+</head>
+
+<body>
+<div class="wrapper"> 
+	<div class="header">
+    	<h1><a href="../index.html" title="MUI移动界面我做主"><img src="../css/images/pagelogo.png" alt="MUI移动界面我做主" width="290" height="92"></a></h1>
+    	<div class="nav">
+            <ul>
+                <li class="border-left-none"><span><a href="../docs/index.html" target="_blank">文档</a></span></li>
+                <li><span><a href="widget.html">控件</a></span></li>
+                <li class="on module"><span><a href="module.html">组件</a></span></li>
+                <li><span><a href="theme.html">皮肤</a></span></li>
+                <li><span><a href="case.html">案例</a></span></li>
+                <li class="border-right-none"><span><a href="../app/index.html" target="_blank">创建APP</a></span></li>
+            </ul>
+		</div>
+    </div>
+    
+  <div class="ad"><img src="../css/images/pagead2.jpg" width="950" height="125"></div>
+  <div class="content">
+  	<div class="title">
+    	<p><a href="../index.html">首页</a> > 组件</p>
+    </div>
+    <div class="forme">
+      <ul class="list-module">
+      	<li>
+       	  <h2>通用页</h2>
+          <div><img src="../images/mp1.png"> </div>
+          <span class="preview"><a href="page.html">预览</a></span><span class="down"><a href="../download/module/page.rar">下载组件</a></span>
+        </li>
+        <li>
+       	  <h2>登录页</h2>
+          <div><img src="../images/mp2.png"> </div>
+          <span class="preview"><a href="login.html">预览</a></span><span class="down"><a href="../download/module/login.rar">下载组件</a></span>
+        </li>
+        <li>
+       	  <h2>图标页</h2>
+          <div><img src="../images/mp3.png"> </div>
+          <span class="preview"><a href="icon.html">预览</a></span><span class="down"><a href="../download/module/icon.rar">下载组件</a></span>
+        </li>
+        <li>
+       	  <h2>列表页</h2>
+          <div><img src="../images/mp4.png"> </div>
+          <span class="preview"><a href="list.html">预览</a></span><span class="down"><a href="../download/module/list.rar">下载组件</a></span>
+        </li>
+        <li>
+       	  <h2>信息展示页</h2>
+          <div><img src="../images/mp5.png"> </div>
+          <span class="preview"><a href="info.html">预览</a></span><span class="down"><a href="../download/module/info.rar">下载组件</a></span>
+        </li>
+        <li>
+       	  <h2>闪屏页</h2>
+          <div><img src="../images/mp6.png"> </div>
+          <span class="preview"><a href="welcome.html">预览</a></span><span class="down"><a href="../download/module/welcome.rar">下载组件</a></span>
+        </li>
+      </ul>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="footer">Copyright © 1998 - 2012 SI-TECH UID. All Rights Reserved. </div>
+</div>
+<div id="iphone">
+    <iframe id="iphoneframe" name="iphoneframe" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+</div>
+<div class="changeview" title="旋转手机屏幕"></div>
+</body>
+</html>

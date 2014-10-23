@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>创建app-填写基本信息</title>
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="../css/aristo/jquery-ui-aristo.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/jquery.jquerytour.css" rel="stylesheet">
+    <script src="../js/jquery.js" type="text/javascript"></script>
+    <script src="../js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.validate.js" type="text/javascript"></script>
+    <script src="../js/getOption.js" type="text/javascript"></script>
+    <script src="../js/jquery.storage.js" type="text/javascript"></script>
+    <script src="../js/jquery.tour.js" type="text/javascript"></script>
+    <script src="../js/jscolor-min.js" type="text/javascript"></script>
+    <script src="../js/kibo.js" type="text/javascript"></script>
+    <script src="../js/sourcecode.js" type="text/javascript"></script>
+    <script src="../js/format.js" type="text/javascript"></script>
+    <script src="../js/iscroll-p.js" type="text/javascript"></script>
+    <script>
+        var target;//目标iframe
+        $(function(){
+            //创建app-基本信息dialog
+            $("#appInfo").dialog({width:500,height:300,modal:true,autoOpen:true,closeOnEscape:false,
+                //close: function(event, ui) {return false;},
+                open:function(){$(this).dialog("widget").find("a.ui-dialog-titlebar-close").hide();}
+            });
+            $("#appILink").click(function(){
+                if($("#creatappbtn").text()!="保存"){
+                    $("#creatappbtn").unbind("click").bind("click",function(){
+                        if($("#appInfo").valid()){
+                            var appname = $("#appname").val();
+                            $("#header>h1").text(appname);
+                            $("#appInfo").dialog("close");
+                        }
+                    }).children("span").text("保存");
+                }
+                $("#appInfo").dialog("open");
+            });
+
+            //创建app-下一步按钮
+            $("#creatappbtn").click(function(){
+                if($("#appInfo").valid()){
+                    var appname = $("#appname").val();
+                    $("#header>h1").text(appname);
+                    $("#appInfo").dialog("close");
+                    $("#createPage").dialog("open");
+                    
+                }
+            });
+
+            //创建页面-dialog
+            $("#createPage").dialog({width:820,height:348,modal:true,autoOpen:false,closeOnEscape:false,close:function(){$("#pagename").val("");}});
+            //创建页面-选择页面模板
+            $("#temps>li").click(function(){
+                $(this).addClass("ui-selected").siblings("li.ui-selected").removeClass("ui-selected");
+            });
+
+            var pagename,temp;
+
+            var $tabs = $("#tabs").tabs({
+                tabTemplate: "<li><a href='#{href}'>#{label}</a><span title='删除' class='ui-icon ui-icon-closethick'>删除</span></li>",
+                add: function( event, ui ) {//新建tab页面的具体实现
+                    var tab_content = $("<div class='phone'></div>").append($("#tempframe").clone().attr({id:pagename+"Frame",src:"temp/npage/"+temp+".html"}).removeClass("hidden"));
+                    $( ui.panel).append(tab_content);
+                    loadingF();
+                    $( ui.panel).find("div.phone").droppable({
+                        drop: function( event, ui ) {
+                            var xd = ui.offset.left-target.offset().left;
+                            var yd = ui.offset.top-target.offset().top;
+                            var id = target.attr("id") || "indexFrame";
+                            document.getElementById(id).contentWindow.widgets("add",xd,yd,ui.helper);
+                        },
+                        out:function(event, ui){
+                            var id = target.attr("id") || "indexFrame";
+                            document.getElementById(id).contentWindow.widgets("clear");
+                        }
+                    });
+                    target = $(ui.panel).find("iframe");//操作目标iframe
+                },
+                select:function(event, ui){
+                    target = $(ui.panel).find("iframe");
+                }
+            });
+
+            $("#creatPLink").click(function(){
+                $("#createPage").dialog("open");
+            });
+
+            $("#creatpagebtn").click(function(){//新建页面
+                if($("#createPage").valid()){
+                    pagename = $("#pagename").val();
+                    var lis = $tabs.find("ul>li");
+                    for(var i=0;i<lis.length;i++){//验证name唯一
+                        if(lis.eq(i).find("a").text().split(".")[0]==pagename){
+                            $("#pagename").addClass("error").val("页面名称重复").select();
+                            return false;
+                        }
+                    }
+                    //使用选定模板，创建新tab页
+                    temp = $("#temps>li.ui-selected").attr("temp");
+                    $tabs.tabs("add","#tab-"+pagename, pagename+".html").tabs("select","#tab-"+pagename);
+                    //tab显示定位
+                    var lisw = 0;
+                    $("#tabtbar>li").each(function(){
+                        lisw += ($(this).width()+2);
+                    });
+                    var tabw = $("#tabs").width();
+                    if(lisw-tabw>0){
+                        $("#tabtbar").css("margin-left",tabw-lisw-40);
+                        $("#movel,#mover").css("display","block");
+                    }
+                    //新建tab完成，关闭dialog，初次运行向导
+                    $("#createPage").dialog("close");
+                    if(!(jQuery.Storage.get("tour") == "true")){
+                        var config = {
+                            mainTitle: "使用向导",
+                            saveCookie: true,
+                            steps: [
+                            {"name": "tour_1", "bgcolor": "black","color": "white","position": "TL","time": 5000,
+                                "text":"选择需要的控件，拖拽到页面中央的工作区"},
+                            {"name": "tour_2","bgcolor"	: "black","color": "white","position": "C","time": 5000,
+                                "text": "工作区内的控件可拖拽排序" },
+                            {"name": "tour_3","bgcolor": "black","color": "white","position":"T","time": 5000,
+                                "text": "对当前选中的控件进行参数配置和皮肤设置"},
+                            {"name": "tour_4","bgcolor"	: "black","color": "white","position": "T","time": 5000,
+                                "text": "更改App设置(F1)"},
+                            {"name": "tour_5","bgcolor"	: "black","color": "white","position": "T","time": 5000,
+                                "text": "新建更多页面(F2)"},
+                            {"name": "tour_6","bgcolor"	: "black","color": "white","position": "T","time": 5000,
+                                "text": "预览设计效果(F3)"},
+                            {"name": "tour_7","bgcolor"	: "black","color": "white","position": "T","time": 5000,
+                                "text": "分享App地址(F4)"},
+                            {"name": "tour_8","bgcolor"	: "black","color": "white","position": "T","time": 5000,
+                                "text": "导出源代码(F6)"},
+                            {"name": "tour_9","bgcolor"	: "black","color": "white","position": "TR","time": 5000,
+                                "text": "打包成android程序(F7)"}
+                            ]
+                        };
+                        $.tour.start(config);
+                    }
+                } else{
+                    $("#pagename").val("必须为英文或数字").select();
+                }
+            });
+
+            //删除tab
+            $tabs.find("li>span").live("click",function(){
+                var title = $(this).prev("a").text();
+                var index = $("li", $tabs).index($(this).parent());
+                var liwidth = $(this).parent().width();
+                $("<p title='删除页面-"+title+"'>页面关闭后无法恢复，您确定要关闭吗？</p>").dialog({
+                    width:360,height:130,autoOpen:true,resizable: false,modal:true,
+                    buttons: {"删除": function() {
+			            $tabs.tabs("remove",index).tabs("select",index);
+                        $(this).dialog( "close" );
+                        //tab显示定位
+                        var lisw = 0;
+                        $("#tabtbar>li").each(function(){
+                            lisw += ($(this).width()+2);
+                        });
+                        var tabw = $("#tabs").width();
+                        if(lisw-tabw<0){
+                            $("#tabtbar").animate({"margin-left":0},200);
+                            $("#movel,#mover").css("display","none");
+                        }else{
+                            var ml = $("#tabtbar").css("margin-left").split("px")[0]*1;
+                            $("#tabtbar").animate({"margin-left":ml+liwidth},200);
+                        }
+                    },
+                        "取消": function() {
+                        $( this ).dialog( "close" );
+                    }}
+                });
+
+            });
+            //tab标题栏左右移动
+            $("#movel").click(function(){
+                var ml = $("#tabtbar").css("margin-left").split("px")[0]*1;
+                if(ml<0){
+                    $("#tabtbar").animate({"margin-left":(ml+100)>0 ? 0 : ml+100},200);
+                }
+            });
+            $("#mover").click(function(){
+                var lisw = 0;
+                $("#tabtbar>li").each(function(){
+                    lisw += ($(this).width()+5);
+                });
+                var tabw = $("#tabs").width();
+                var ml = $("#tabtbar").css("margin-left").split("px")[0]*1;
+                if(ml>tabw-lisw){
+                    $("#tabtbar").animate({"margin-left":ml-100},200);
+                }
+            });
+
+            $("#widgets").accordion();
+            var maxh = $("#widgetPanel").height()-52-$("#widgets").height();
+            $("#widgets ul").height($("#widgets ul:first").height()+maxh);
+
+            //搜索控件
+            var links = $("#widgets li a");
+            var cns = $.map(links,function(n){return n.innerText;});
+            var ens = $.map($("#widgets li a"),function(n){return n.getAttribute("href").substr(1);});
+            var tags = $.merge(cns,ens).concat("2012");
+            $("#searchW").autocomplete({source:tags,select: function(event, ui) {
+                if(ui.item.value=="2012"){$("html").addClass("go2012"); return;}
+                var s = links.filter(function(){return $(this).text()==ui.item.value||$(this).attr("href").substr(1)==ui.item.value;});
+                $("#widgets").accordion("activate" , $("#widgets ul").index(s.closest("ul")));
+            }});
+
+            //控件拖拽
+
+            $("#widgets li").each(function(){
+                var ii=0,widgetT=$(this).children("a:first-child").attr("href");//拖拽次数累计
+                $(this).bind("mousedown",function(e){e.preventDefault();});
+                $(this).draggable({
+                    cursor:"move",distance:10,iframeFix:true,opacity:0.8,
+                    helper:function(){return helper(widgetT);},appendTo:"#content",
+                    drag:function(event,ui) {
+                        if(ii==15){//拖拽20次触发，太过频繁影响速度
+                            var xd = ui.offset.left - target.offset().left;
+                            var yd = ui.offset.top - target.offset().top;
+                            if (xd > 0 && xd - target.width() < 0 && yd > 0 && yd - target.height() < 0) {
+                                var id = target.attr("id") || "indexFrame";
+                                document.getElementById(id).contentWindow.widgets("hover",xd, yd);
+                            }
+                            ii=0;
+                        }else{
+                            ii+=1;
+                        }
+                    },
+                    stop:function(event,ui){
+                        var id = target.attr("id") || "indexFrame";
+                        document.getElementById(id).contentWindow.widgets("clear");
+                    }
+                });
+            });
+
+            //旋转屏幕
+            $("#rotate").click(function(){
+                target.parent("div").andSelf().toggleClass("rotate");
+            });
+            //重新加载模板
+            $("#reload").click(function(){
+                if(confirm("重新加载模板将会清空当前画板的所有内容，确定要重新加载？")){
+                    var id = target.attr("id") || "indexFrame";
+                    loadingF();
+                    document.getElementById(id).contentWindow.location.reload();
+                }
+            });
+            //查看源代码
+            $("#recode").click(function(){
+                var id = target.attr("id") || "indexFrame";
+                var code = $(document.getElementById(id).contentWindow.document).find("body").clone().sourcecode();
+                code = style_html(code.html(), 1, "    ", 100);
+                var textarea = $("<textarea class='code' style='width:680px;height: 360px'></textarea>").text(code);
+                $("<p title='查看源代码'></p>").append(textarea).dialog({
+                    width:720,height:420,autoOpen:true,modal:true
+                });
+            });
+
+            //点击空白区清空选择,当前操作对象改为page控件
+            $("#tabs").bind("click",function(){
+                var id = target.attr("id") || "indexFrame";
+                var fdocu = document.getElementById(id).contentWindow;
+                $(fdocu.document).find(".mui-selected,.wt-selected").removeClass("mui-selected wt-selected");
+                fdocu.selWidget = $(fdocu.document).find("body>div[data-role='page']");
+                $("#options form").addClass("hidden");
+                $("#pageOptF").removeClass("hidden");
+                $("#operation").addClass("hidden");
+            });
+
+            //控件参数传递
+            $("#options form input,#options form select,#options form textarea").live("change",function(){
+                var id = target.attr("id") || "indexFrame";
+                var $this = $(this);
+                document.getElementById(id).contentWindow.setOption($this);
+            });
+            $("#options button").live("click",function(){
+                var id = target.attr("id") || "indexFrame";
+                var $this = $(this);
+                document.getElementById(id).contentWindow.setOption($this);
+            });
+            //初始隐藏控件操作按钮
+            $("#operation").buttonset().addClass("hidden");
+            
+            //初始化按钮
+            $("button").button();
+            $("#toolbar").buttonset();
+
+            //屏蔽右键
+            $(document).bind("contextmenu",function(e){return false;});
+            //快捷键
+            var k = new Kibo();
+            k.down('f5', function() { return confirm("刷新操作将清空现有页面内容，您确定要刷新页面吗？")});//确认刷新
+            k.down('delete',function(){$("#deleteW").trigger("click");});
+            k.down('up',function(){$("#goupW").trigger("click");});
+            k.down('down',function(){$("#godownW").trigger("click");});
+            k.down('f1',function(){$("#appILink").trigger("click"); return false;});
+            k.down('f2',function(){$("#creatPLink").trigger("click"); return false;});
+            k.down('f3',function(){$("#preview").trigger("click"); return false;});
+            k.down('f4',function(){$("#share").trigger("click"); return false;});
+            k.down('f6',function(){$("#dozip").trigger("click"); return false;});
+            k.down('f7',function(){$("#doapk").trigger("click"); return false;});
+
+            //预览效果
+            $("#preview").click(function(){
+                var id = target.attr("id") || "indexFrame";
+                $("#tabs iframe").each(function(){
+                    var idx = $(this).attr("id");
+                    var page = idx.split("Frame")[0]+".html";
+                    var html = document.getElementById(idx).contentWindow.document;
+                    var head = $(html).find("head").clone();
+                    head.find("script.mui").remove().end().find("#is4").attr("src","../njs/iscroll-m.js");
+                    var body = $(html).find("body").clone().sourcecode();
+                    localStorage.setItem(page,"<html><head>"+head.html()+"</head>"+"<body>"+body.html()+"</body></html>");
+                    var top = screen.height/2-230,left = screen.width/2-160;
+                    if(idx==id){
+                        var previewW = window.open("","preview","top="+top+",left="+left+",width=320,height=460,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no");
+                        previewW.document.open("text/html","replace");
+                        previewW.document.write("<html><head>"+head.html()+"</head>"+"<body>"+body.html()+"</body></html>");
+                        previewW.document.close();
+                    }
+                });
+
+
+            });
+            //分享应用
+            $("#share").click(function(){
+                var path = "<a style='color: #0066cc' href='http://www.mui.net/app/ilovemui' target='_blank'>http://www.mui.net/app/ilovemui</a>";
+                $("<p style='line-height: 1.6' title='分享应用'>您的应用地址：<br>"+path+"</p>").dialog({
+                    width:320,height:100,autoOpen:true,modal:true
+                });
+            });
+
+            //生成代码
+            $("#dozip").click(function(){
+                var pages = [];
+                $("#tabs iframe").each(function(i,n){
+                    var idx = $(this).attr("id");
+                    var page = idx.split("Frame")[0]+".html";
+                    var html = document.getElementById(idx).contentWindow.document;
+                    var head = $(html).find("head").clone();
+                    head.find("script.mui,base").remove();
+                    var body = $(html).find("body").clone().sourcecode();
+                    localStorage.setItem(page,"<html><head>"+head.html()+"</head>"+"<body>"+body.html()+"</body></html>");
+                    pages[i]={};
+                    pages[i].name=page;
+                    pages[i].code="<html><head>"+head.html()+"</head>"+"<body>"+body.html()+"</body></html>";
+                });
+                //pages为页面代码的json数组，传递给后台服务器保存文件
+                //name为页面名称,code为页面源代码
+            });
+
+            //打包apk
+            $("#doapk").click(function(){alert("高级功能，正在开发中...");});
+
+            $("#copyright").click(function(){
+                $("<p title='你是个难得一见的人才啊！'>你是思特奇的吗？</p>").dialog({
+                    width:400,height:160,autoOpen:true,modal:true,
+                    buttons:{
+                        "是":function(){
+                            $(this).dialog("close");
+                            $("<p title='你是个难得一见的人才啊！'>想加入UID部门体验更多有趣的项目嘛？</p>").dialog({
+                                width:400,height:160,autoOpen:true,modal:true,
+                                buttons:{
+                                    "想":function(){
+                                        $(this).dialog("close");
+                                        $("<p title='你是个难得一见的人才啊！'>想加入MUI研发团队嘛？</p>").dialog({
+                                            width:400,height:160,autoOpen:true,modal:true,
+                                            buttons:{
+                                                "很想":function(){
+                                                    $(this).dialog("close");
+                                                    $("<p title='你是个难得一见的人才啊！'>你是美女嘛？</p>").dialog({
+                                                        width:400,height:160,autoOpen:true,modal:true,
+                                                        buttons:{
+                                                            "是":function(){
+                                                               alert("ok，欢迎你，请联系yangpl或wangyq吧");$(this).dialog("close");
+                                                            },
+                                                            "不是":function(){
+                                                                alert("对不起，我们只招收美女!!!");$(this).dialog("close");
+                                                            }
+                                                        }
+                                                    });
+                                                },
+                                                "不想":function(){
+                                                    alert("丫的太无趣了!!!");$(this).dialog("close");
+                                                }
+                                            }
+                                        });
+                                    },
+                                    "不想":function(){
+                                        alert("丫的太没追求了！！！");$(this).dialog("close");
+                                    }
+                                }
+                            });
+                        },
+                        "不是":function(){alert("赶紧跳槽来思特奇吧！！！");$(this).dialog("close");}
+                    }
+                });
+            });
+            //参数配置区域滚动
+            var ops = new iScroll('options',{hideScrollbar:false});
+            //禁止form的回车提交行为
+            $("form").live("submit",function(){return false;});
+
+        });
+
+        function initInputs(id){//控件配置部分的表单元素初始化
+            var f = $(id);
+            jscolor.bind();
+            f.find("ul.themelist>li").click(function(){
+                $(this).siblings("li.check").removeClass("check").end().addClass("check");
+            });
+            f.find("button").button();
+        }
+
+        //iframe loading
+        function loadingF(){
+            $("#loadingF").removeClass("hidden").insertAfter(target);
+        }
+        function loadF(){
+            $("#loadingF").addClass("hidden");
+        }
+        function helper(widgetT){//生成拖拽示意图片
+            var img = new Image();
+            var base = "../css/images/icons/";
+            img.src = base+widgetT.substr(1)+"L.png";
+            return img;
+        }
+
+    </script>
+</head>
+<body>
+<!--app功能区-->
+<div id="app">
+    <div id="header">
+
+    	<a href="../index.html" target="_blank" class="aaplogo"></a>
+        <h1>Mobile UI</h1>
+
+        <div class="toolbar">
+            	<a id="appILink" class="tour_4" href="#" title="F1"><img src="../css/images/appicon1.png"><span>App设置</span></a>
+                <a id="creatPLink" class="tour_5" href="#" title="F2"><img src="../css/images/appicon6.png"><span>新建页面</span></a>
+                <a id="preview" class="tour_6" href="#" title="F3"><img src="../css/images/appicon2.png"><span>页面预览</span></a>
+                <a id="share" class="tour_7" href="#" title="F4"><img src="../css/images/appicon3.png"><span>分享应用</span></a>
+                <a id="dozip" class="tour_8" href="#" title="F6"><img src="../css/images/appicon4.png"><span>生成代码</span></a>
+                <a id="doapk" class="tour_9" href="#" title="F7"><img src="../css/images/appicon5.png"><span>打包APK</span></a>
+
+        </div>
+    </div>
+    <div id="content">
+        <div id="widgetPanel">
+            <div class="titlebar">
+                <input type="text" name="searchW" id="searchW" placeholder="输入控件名称"/>
+                <h4><img src="../css/images/icon1.gif">控件列表</h4>
+            </div>
+
+            <div id="widgets">
+                <h3><a href="#">基本元素</a></h3>
+                <ul>
+                    <li><a href="#h1"><img src="../css/images/icons/h1.png" alt="标题">标题</a></li>
+                    <li><a href="#p"><img src="../css/images/icons/p.png" alt="段落">段落</a></li>
+                    <li><a href="#span"><img src="../css/images/icons/text.png" alt="文字">文字</a></li>
+                    <li class="tour_1"><a href="#img"><img src="../css/images/icons/img.png" alt="图片">图片</a></li>
+                    <li><a href="#textlink"><img src="../css/images/icons/textlink.png" alt="链接">链接</a></li>
+                    <li><a href="#hr"><img src="../css/images/icons/hr.png" alt="水平线">水平线</a></li>
+                    <li><a href="#br"><img src="../css/images/icons/br.png" alt="换行符">换行符</a></li>
+
+                </ul>
+                <h3><a href="#">按钮</a></h3>
+                 <ul>
+                    <li><a href="#button"><img src="../css/images/icons/button.png" alt="表单按钮">按钮</a></li>
+                    <li><a href="#btnset"><img src="../css/images/icons/btnset.png" alt="按钮组">按钮组</a></li>
+                    
+                    <li><a href="#linkbtn"><img src="../css/images/icons/linkbtn.png" alt="链接按钮">链接按钮</a></li>
+                    <li><a href="#linkbtnset"><img src="../css/images/icons/linkbtnset.png" alt="链接按钮组">链接按钮组</a></li>
+                    
+                    <li><a href="#iconbtn"><img src="../css/images/icons/iconbtn.png" alt="图标按钮">图标按钮</a></li>
+                    <li><a href="#iconbtnset"><img src="../css/images/icons/iconbtnset.png" alt="图标按钮组">图标按钮组</a></li>
+                    
+                    <li><a href="#iconlinkbtn"><img src="../css/images/icons/iconlinkbtn.png" alt="图标链接按钮">图标链接按钮</a></li>
+  
+                    <li><a href="#iconlinkbtnset"><img src="../css/images/icons/iconlinkbtnset.png" alt="图标链接按钮组">图标链接按钮组</a></li>
+                </ul>
+                <h3><a href="#">工具栏</a></h3>
+                 <ul>
+                    <li><a href="#jheader"><img src="../css/images/icons/jheader.png" alt="顶部栏">顶部栏</a></li>
+                    <li><a href="#jfooter"><img src="../css/images/icons/jfooter.png" alt="底部栏">底部栏</a></li>
+                    <!--<li><a href="#bar"><img src="../css/images/icons/link.png" alt="工具条">工具条</a></li>-->
+                    <li><a href="#jnavbar"><img src="../css/images/icons/jnavbar.png" alt="导航栏">导航栏</a></li>
+                    <li><a href="#iconnavbar"><img src="../css/images/icons/iconnavbar.png" alt="导航栏">图标导航栏</a></li>
+                </ul>
+                <h3><a href="#">列表</a></h3>
+                 <ul>
+                    <li><a href="#linklv"><img src="../css/images/icons/linklv.png" alt="普通链接列表">普通链接列表</a></li>
+                    <li><a href="#orderlv"><img src="../css/images/icons/orderlv.png" alt="有序列表">有序列表</a></li>
+                    <li><a href="#readonlylv"><img src="../css/images/icons/readonlylv.png" alt="只读列表">只读列表</a></li>
+                    <li><a href="#dividerlv"><img src="../css/images/icons/dividerlv.png" alt="分隔符列表">分隔符列表</a></li>
+                    <li><a href="#imgslv"><img src="../css/images/icons/imgslv.png" alt="缩略图列表">缩略图列表</a></li>
+                    <!--<li><a href="#splitlv"><img src="../css/images/icons/link.png" alt="按钮分离列表">按钮分离列表</a></li>-->
+                    <li><a href="#iconslv"><img src="../css/images/icons/iconslv.png" alt="图标列表">图标列表</a></li>
+                    <li><a href="#countlv"><img src="../css/images/icons/countlv.png" alt="列表数量指示">列表数量指示</a></li>
+                    <!--<li><a href="#searchlv"><img src="../css/images/icons/link.png" alt="可搜索列表">可搜索列表</a></li>-->
+                </ul>
+                <h3><a href="#">表单元素</a></h3>
+                <ul>
+                    <li><a href="#label"><img src="../css/images/icons/label.png" alt="文本输入框">标签</a></li>
+                    <li><a href="#textinput"><img src="../css/images/icons/textinput.png" alt="文本输入框">文本输入框</a></li>
+                    <li><a href="#password"><img src="../css/images/icons/password.png" alt="密码输入框">密码输入框</a></li>
+                    <li><a href="#searchinput"><img src="../css/images/icons/searchinput.png" alt="搜索输入框">搜索输入框</a></li>
+                    <li><a href="#textarea"><img src="../css/images/icons/textarea.png" alt="文本输入域">文本输入域</a></li>
+                    <li><a href="#slider"><img src="../css/images/icons/slider.png" alt="滑动条">滑动条</a></li>
+                    <li><a href="#toggle"><img src="../css/images/icons/toggle.png" alt="开关">开关</a></li>
+                    <li><a href="#radio"><img src="../css/images/icons/radio.png" alt="单选">单选</a></li>
+                    <li><a href="#checkbox"><img src="../css/images/icons/checkbox.png" alt="多选">多选</a></li>
+                    <li><a href="#select"><img src="../css/images/icons/select.png" alt="选择菜单">选择菜单</a></li>
+                    <li><a href="#hradio"><img src="../css/images/icons/hradio.png" alt="单选框">单选框</a></li>
+                    <li><a href="#hcheckbox"><img src="../css/images/icons/hcheckbox.png" alt="复选框">复选框</a></li>
+                </ul>
+                <h3><a href="#">高级控件</a></h3>
+                 <ul>
+                    <li><a href="#collapsible"><img src="../css/images/icons/collapsible.png" alt="折叠面板">折叠面板</a></li>
+                    <li><a href="#collset"><img src="../css/images/icons/collset.png" alt="折叠面板组">折叠面板组</a></li>
+                    <li><a href="#icongrid"><img src="../css/images/icons/icongrid.png" alt="图标矩阵">图标矩阵</a></li>
+                    <li><a href="#jtab"><img src="../css/images/icons/jtab.png" alt="选项卡">选项卡</a></li>
+                    <li><a href="#slidebox"><img src="../css/images/icons/slidebox.png" alt="滑动框">滑动框</a></li>
+                    <li><a href="#imgslidebox"><img src="../css/images/icons/slidebox.png" alt="图片滑动框">图片滑动框</a></li>
+                    <!--<li><a href="#imgview"><img src="../css/images/icons/link.png" alt="图片查看">图片查看</a></li>-->
+                </ul>
+                <h3><a href="#">日期/时间选择器</a></h3>
+                 <ul>
+                    <li><a href="#andrdate"><img src="../css/images/icons/andrdate.png" alt="android日期选择器">android日期选择器</a></li>
+                    <li><a href="#andrtime"><img src="../css/images/icons/andrtime.png" alt="android时间选择器">android时间选择器</a></li>
+                    <li><a href="#iosdate"><img src="../css/images/icons/iosdate.png" alt="iOS日期选择器">iOS日期选择器</a></li>
+                    <li><a href="#iostime"><img src="../css/images/icons/iostime.png" alt="iOS时间选择器">iOS时间选择器</a></li>
+                    <li><a href="#calendar"><img src="../css/images/icons/calendar.png" alt="日历选择器">日历选择器</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="optionPanel">
+            <div class="titlebar">
+                <h4>参数配置</h4>
+          </div>
+            <div id="options">
+                <div id="scrollarea" style="position: absolute; width: 100%;">
+                <div id="operation">
+                    <button type="button" id="deleteW" rel="delete" title="delete键">删除</button>
+                    <button type="button" id="goupW" rel="goup" title="上箭头">上移</button>
+                    <button type="button" id="godownW" rel="godown" title="下箭头">下移</button>
+                </div>
+                <form id="pageOptF" class="tour_3">
+                    <div>
+                        <label for="background-color">背景颜色</label>
+                        <input type="text" rel="css" name="background-color" id="background-color" class="color" />
+                    </div>
+                    <div>
+                         <label for="background-img">背景图片</label>
+                        <input size="30" type="text" rel="css" name="background-image" id="background-image" />
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div id="board">
+            <div id="tabs" class="tour_2">
+                <a id="movel" href="#"></a>
+                <ul id="tabtbar">
+                </ul>
+                <a id="mover" href="#"></a>
+            </div>
+            <iframe class="prototype hidden" id="tempframe" name="indexFrame" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+            <a href="#" id="rotate"><img src="../css/images/rotate.png" alt="旋转" title="旋转"></a>
+            <a href="#" id="reload"><img src="../css/images/reload.png" alt="重新加载模板" title="重新加载模板"></a>
+            <a href="#" id="recode"><img src="../css/images/code.png" alt="查看源代码" title="查看源代码"></a>
+            <div id="loadingF" class="loadingF hidden"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="copyright" class="copyright">
+            &copy;2011 si-tech UID
+        </div>
+
+        <div class="version">
+            当前版本0.1 2011-12-5
+        </div>
+
+        <!--<div id="google_translate_element"></div>-->
+        <!--<script>-->
+            <!--function googleTranslateElementInit() {-->
+              <!--new google.translate.TranslateElement({-->
+                <!--pageLanguage: 'zh-CN',-->
+                <!--includedLanguages: 'fr,ko,en,zh-TW',-->
+                <!--autoDisplay: false,-->
+                <!--layout: google.translate.TranslateElement.InlineLayout.SIMPLE-->
+              <!--}, 'google_translate_element');-->
+            <!--}-->
+        <!--</script>-->
+        <!--<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>-->
+    </div>
+</div>
+<!--app基本信息-->
+    <form action="" id="appInfo" title="创建app-填写基本信息">
+        <table>
+            <tr>
+                <td nowrap>应用名称：</td>
+              <td nowrap><input name="appname" id="appname" type="text" size="40" class="required" value="应用名称">*</td>
+            </tr>
+            <tr>
+                <td nowrap>应用版本：</td>
+              <td nowrap><input name="appver" id="appver" type="text" size="40" class="required" value="1.0">*</td>
+            </tr>
+            <tr>
+                <td nowrap>Logo：</td>
+              <td nowrap><input name="applogo" id="applogo" type="file" size="40" accept="png">
+                    <div class="tip">png图片,建议尺寸57*57</div>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>应用描述：</td>
+              <td nowrap><textarea name="appdes" id="appdes" rows="3" cols="40"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" nowrap>
+                    <button id="creatappbtn" type="button">下一步</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+<!--创建页面-->
+    <form id="createPage" title="创建页面">
+        页面名称：<input type="text" size="20" name="pagename" id="pagename" class="required alphanum" />.html
+        <fieldset>
+            <legend>选择模板</legend>
+            <ul id="temps">
+                <li temp="page" class="ui-selected">
+                    <img src="temp/nresources/images/1.png" alt="通用页">
+                    通用页
+                </li>
+                <li temp="login">
+                    <img src="temp/nresources/images/2.png" alt="登录页">
+                    登录页
+                </li>
+                <li temp="icon">
+                    <img src="temp/nresources/images/3.png" alt="图标页">
+                    图标页
+                </li>
+                <li temp="list">
+                    <img src="temp/nresources/images/4.png" alt="列表页">
+                    列表页
+                </li>
+                <li temp="info">
+                    <img src="temp/nresources/images/5.png" alt="信息展示页">
+                    信息展示页
+                </li>
+                <li temp="blank">
+                    <img src="temp/nresources/images/6.png" alt="空白页">
+                    空白页
+                </li>
+            </ul>
+        </fieldset>
+        <button type="button" id="creatpagebtn">创建页面</button>
+    </form>
+</body>
+</html>

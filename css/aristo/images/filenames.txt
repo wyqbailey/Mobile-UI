@@ -1,0 +1,35 @@
+ 驱动器 D 中的卷是 pro
+ 卷的序列号是 E40E-27E3
+
+ D:\soft\其他软件\apache-tomcat-6.0.26\apache-tomcat-6.0.26\webapps\ROOT\css\aristo\images 的目录
+
+2012/01/09  10:22    <DIR>          .
+2012/01/09  10:22    <DIR>          ..
+2011/06/01  15:13               847 ajax-loader.gif
+2010/03/28  02:40               168 aristo-button-active.gif
+2010/03/28  02:40               149 aristo-button-hover.gif
+2010/03/28  02:40               168 aristo-button-off.gif
+2010/03/28  02:40               678 aristo-slider-handle.png
+2011/06/01  15:13             3,721 bg_fallback.png
+2012/01/09  10:22                 0 filenames.txt
+2011/06/09  13:37             7,882 ibutton-slider-default.png
+2011/06/01  15:13             3,217 icon_sprite.png
+2011/06/01  15:13               502 progress_bar.gif
+2011/06/01  15:13             4,453 slider_handles.png
+2010/03/28  02:40               260 ui-bg_diagonals-thick_18_b81900_40x40.png
+2010/03/28  02:40               251 ui-bg_diagonals-thick_20_666666_40x40.png
+2010/03/28  02:40               178 ui-bg_flat_10_000000_40x100.png
+2010/03/28  02:40               104 ui-bg_glass_100_f6f6f6_1x400.png
+2010/03/28  02:40               125 ui-bg_glass_100_fdf5ce_1x400.png
+2010/03/28  02:40               105 ui-bg_glass_65_ffffff_1x400.png
+2010/03/28  02:40             3,762 ui-bg_gloss-wave_35_f6a828_500x100.png
+2010/03/28  02:40                90 ui-bg_highlight-soft_100_eeeeee_1x100.png
+2010/03/28  02:40               129 ui-bg_highlight-soft_75_ffe45c_1x100.png
+2011/06/01  15:13             4,369 ui-icons_222222_256x240.png
+2010/03/28  02:40             4,369 ui-icons_228ef1_256x240.png
+2011/06/01  15:13             4,369 ui-icons_454545_256x240.png
+2010/03/28  02:40             5,355 ui-icons_ef8c08_256x240.png
+2010/03/28  02:40             4,369 ui-icons_ffd27a_256x240.png
+2010/03/28  02:40             4,369 ui-icons_ffffff_256x240.png
+              26 个文件         53,989 字节
+               2 个目录 80,261,656,576 可用字节

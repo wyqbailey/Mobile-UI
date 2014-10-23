@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Mobile UI - 列表页面</title>
+<link rel="stylesheet" href="../nresources/jqthemes/default/jquery.mobile.css">
+<script src="../njs/jquery.js"></script>
+<script src="../njs/default-1.0rc2.js"></script>
+<script>
+    $(function(){
+        $("div[data-role='page']").bind("pageinit",function(){
+            $("button[wt]").removeAttr("wt").closest("div.ui-btn").attr("wt","button");
+        });
+    });
+</script>
+<script src="../njs/jquery.mobile.js"></script>
+<script class="mui" src="../njs/jquery.ui.core.js"></script>
+<script class="mui" src="../njs/jquery.ui.widget.js"></script>
+<script class="mui" src="../njs/jquery.ui.mouse.js"></script>
+<script class="mui" src="../njs/jquery.ui.sortable.js"></script>
+<script id="is4" src="../njs/iscroll.js"></script>
+<script class="mui" src="../../../js/kibo.js"></script>
+<script class="mui" src="../../../js/action.js"></script>
+</head>
+
+<body>
+<div data-role="page">
+    <div wt="content" data-role="content" style="background:#dfeef6;">
+        <img wt="img" src="../nresources/images/logo.png" style="margin-top: 50px; margin-left: 46px; margin-bottom: 20px; ">
+        <p wt="p" style="font-weight: bold; margin-bottom: 5px; margin-left: 5px; z-index: 0; color: rgb(2, 118, 191); ">用户登录</p>
+        <hr wt="hr" style="border: none;height: 1px; background-color: #aaa;">
+        <label wt="label" class="" style="margin-left: 10px; font-size: 14px; ">账户：</label>
+        <input wt="textinput" type="text" placeholder="" style="display: inline; width: 220px; " data-theme="d">
+        <label wt="label" class="" style="margin-left: 10px; font-size: 14px; ">密码：</label>
+        <input wt="textinput" type="text" style="width: 220px; display: inline; margin-top: 5px; margin-bottom: 5px; " data-theme="d">
+        <hr wt="hr"  style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none;  height: 1px; background-color: rgb(170, 170, 170); margin-bottom: 10px; ">
+        <button wt="button" type="button" data-theme="h">登 录</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Mobile UI--移动界面我做主</title>
+<link href="../css/reset.css" rel="stylesheet" type="text/css">
+<link href="../css/page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("ul.list-module a").click(function(){
+            var h = "http://172.22.11.6/mui/download/case/"+$(this).attr("href");
+            var top = ($(window).height()-$("#iphone").height())/2;
+            var left = ($(window).width()-$("#iphone").width())/2;
+            $("#iphoneframe").attr("src",h);
+            $("div.overlay").length || $("<div class='overlay'></div>").appendTo("body");
+            $("div.overlay").css({display:"block",height:$("body").height()}).fadeIn();
+            $("#iphone").fadeIn().css({display:"block",top:top,left:left});
+            //$("div.changeview").fadeIn().css({display:"block"});
+            return false;
+        });
+        $("div.changeview").click(function(e){
+            $("#iphone,#iphoneframe").toggleClass("rotate");
+            e.stopPropagation();
+        });
+        $("body").click(function(){
+            $("#iphone,div.overlay,div.changeview").fadeOut();
+        });
+    });
+</script>
+</head>
+
+<body>
+<div class="wrapper"> 
+	<div class="header">
+    	<h1><a href="../index.html" title="MUI移动界面我做主"><img src="../css/images/pagelogo.png" alt="MUI移动界面我做主" width="290" height="92"></a></h1>
+    	<div class="nav">
+            <ul>
+                <li class="border-left-none"><span><a href="../docs/index.html" target="_blank">文档</a></span></li>
+                <li><span><a href="widget.html">控件</a></span></li>
+                <li><span><a href="module.html">组件</a></span></li>
+                <li><span><a href="theme.html">皮肤</a></span></li>
+                <li class="on case"><span><a href="case.html">案例</a></span></li>
+                <li class="border-right-none"><span><a href="../app/index.html" target="_blank">创建APP</a></span></li>
+            </ul>
+		</div>
+    </div>
+    
+  <div class="ad"><img src="../css/images/pagead4.jpg" width="950" height="125"></div>
+  <div class="content">
+  	<div class="title">
+    	<p><a href="../index.html">首页</a> > 案例</p>
+    </div>
+    <div class="forme">
+    	<ul class="list-module">
+            <li>
+              <h2>安徽移动G3OP</h2>
+              <div><img src="../images/case1.png"></div>
+              <span class="preview"><a href="安徽移动G3OP/login.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+            <li>
+              <h2>四川移动渠道助手</h2>
+              <div><img src="../images/case2.png"></div>
+              <span class="preview"><a href="四川移动渠道助手/npage/login.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+            <li>
+              <h2>中国联通网格营销系统</h2>
+              <div><img src="../images/case3.png"></div>
+              <span class="preview"><a href="中国联通网格营销系统/login.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+            <li>
+              <h2>湖北电信10000知道</h2>
+              <div><img src="../images/case4.png"></div>
+              <span class="preview"><a href="湖北电信10000知道/npage/index.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+            <li>
+              <h2>江苏电信手机门户</h2>
+              <div><img src="../images/case5.png"></div>
+              <span class="preview"><a href="江苏电信手机门户/npage/login.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+            <li>
+              <h2>移动统一门户</h2>
+              <div><img src="../images/case6.png"></div>
+              <span class="preview"><a href="移动统一门户/npage/login.html">预览</a></span><!--<span class="down"><a href="#">下载案例</a></span>-->
+            </li>
+      </ul>
+        <div class="clear"></div>
+    </div>
+  </div>
+  <div class="footer">Copyright © 1998 - 2012 SI-TECH UID. All Rights Reserved. </div>
+</div>
+<div id="iphone">
+    <iframe id="iphoneframe" name="iphoneframe" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+</div>
+<div class="changeview" title="旋转手机屏幕"></div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="user-scalable=no, width=320,height=480, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Mobile UI - 列表页面</title>
+<link rel="stylesheet" href="../nresources/jqthemes/default/jquery.mobile.css">
+<script src="../njs/jquery.js"></script>
+<script src="../njs/default-1.0rc2.js"></script>
+<script src="../njs/jquery.mobile.js"></script>
+<script src="../njs/iscroll.js"></script>
+</head>
+
+<body>
+<div data-role="page">
+  <div data-role="header">
+    <h1>空白页面</h1>
+  </div>
+  <div data-role="content">
+    <button type="button" >按钮</button>
+    <div data-type="horizontal" data-role="controlgroup" >
+      <button type="button" >按钮1</button>
+      <button type="button" >按钮2</button>
+      <button type="button" >按钮3</button>
+    </div>
+    <button type="button" data-icon="star" >图标按钮</button>
+    <div data-role="navbar" >
+      <ul>
+        <li><a href="#" data-icon="grid" >One</a></li>
+        <li><a href="#" data-icon="star" >Two</a></li>
+        <li><a href="#" data-icon="gear" >Three</a></li>
+      </ul>
+    </div>
+    <div data-type="horizontal" data-role="controlgroup" >
+      <button data-icon="plus" type="button" >按钮1</button>
+      <button data-icon="delete" type="button" >按钮2</button>
+    </div>
+    <div data-role="navbar" >
+      <ul>
+        <li><a href="#" >One</a></li>
+        <li><a href="#" >Two</a></li>
+        <li><a href="#" >Three</a></li>
+      </ul>
+    </div>
+    <ul data-role="listview" data-inset="true" >
+      <li ><a href="#">第一条</a></li>
+      <li ><a href="#">第二条</a></li>
+      <li ><a href="#">第三条</a></li>
+    </ul>
+    <ul data-role="listview" data-inset="true" >
+      <li>第一条</li>
+      <li>第二条</li>
+      <li>第三条</li>
+    </ul>
+    <ul data-role="listview" data-inset="true" >
+      <li data-role="list-divider" >A</li>
+      <li ><a href="#">Apple</a></li>
+      <li ><a href="#">amazon</a></li>
+      <li ><a href="#">alibaba</a></li>
+    </ul>
+    <ul data-role="listview" data-inset="true" >
+      <li ><a href="#">Inbox<span mui="span"
+                                                      class="ui-li-count ui-btn-up-c ui-btn-corner-all">12</span></a> </li>
+      <li ><a href="#">Outbox<span mui="span"
+                                                       class="ui-li-count ui-btn-up-c ui-btn-corner-all">0</span></a> </li>
+    </ul>
+    <ul data-role="listview" data-inset="true"  >
+      <li ><a href="#"><img mui="image" src="../nresources/images/icon/6.png" width="80" class="ui-li-thumb ui-corner-tl">
+        <h3 mui="h1" class="ui-li-heading">User</h3>
+        <p mui="p" class="ui-li-desc">用户信息</p>
+        </a></li>
+      <li ><a href="#"><img mui="image" src="../nresources/images/icon/13.png" width="80" class="ui-li-thumb ui-corner-bl">
+        <h3 mui="h1" class="ui-li-heading">System</h3>
+        <p mui="p" class="ui-li-desc">系统信息</p>
+        </a></li>
+    </ul>
+    <ul data-role="listview" data-inset="true"  >
+      <li ><a href="#"><img mui="image" src="../nresources/images/icon/gf.png"
+                                                class="ui-li-icon ui-li-thumb">France </a></li>
+      <li ><a href="#"><img mui="image" src="../nresources/images/icon/de.png"
+                                                class="ui-li-icon ui-li-thumb">Germany </a></li>
+    </ul>
+    <ol data-role="listview" data-inset="true"  >
+      <li ><a href="#">第一条</a></li>
+      <li ><a href="#">第二条</a></li>
+      <li ><a href="#">第三条</a></li>
+    </ol>
+    <input type="search" placeholder="keywords"  >
+    <textarea rows="3" wt="textarea" placeholder="text" ></textarea>
+    <input wt="password" type="password" placeholder="password" >
+    <input type="range" value="25" min="0" max="100" >
+    <input wt="textinput" type="text" placeholder="text" >
+    <select wt="toggle" data-role="slider" style="" >
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+    <fieldset data-role="controlgroup" data-type="vertical">
+      <input type="radio" name="radio-view" id="radio-view-a" value="list" data-type="vertical" >
+      <label for="radio-view-a" data-type="vertical" >List</label>
+      <input type="radio" name="radio-view"  id="radio-view-b" value="grid"  data-type="vertical" >
+      <label for="radio-view-b" data-type="vertical">Grid</label>
+      <input type="radio" name="radio-view" id="radio-view-c" value="gallery" data-type="vertical" >
+      <label for="radio-view-c" data-type="vertical">Gallery</label>
+    </fieldset>
+    <fieldset data-role="controlgroup" data-type="vertical" >
+      <input type="checkbox" name="checkbox-6" id="checkbox-6" data-type="vertical" >
+      <label for="checkbox-6" data-type="vertical">萝卜</label>
+      <input type="checkbox" name="checkbox-7" id="checkbox-7" data-type="vertical" >
+      <label for="checkbox-7" data-type="vertical">青菜</label>
+      <input type="checkbox" name="checkbox-8" id="checkbox-8" data-type="vertical" >
+      <label for="checkbox-8" data-type="vertical">苹果</label>
+    </fieldset>
+    <select >
+      <option value="1">选择第一项</option>
+      <option value="2">选择第二项</option>
+      <option value="3">选择第三项</option>
+    </select>
+    <div data-role="collapsible" data-collapsed="false">
+      <h3 >标题</h3>
+      <p >折叠区内容</p>
+    </div>
+    <div data-role="collapsible-set">
+      <div data-role="collapsible"  >
+        <h3 >Section 1</h3>
+        <p >Collapsible content</p>
+      </div>
+      <div data-role="collapsible"  >
+        <h3>Section 2</h3>
+        <p>Collapsible content</p>
+      </div>
+      <div data-role="collapsible"  >
+        <h3>Section 3</h3>
+        <p>Collapsible content</p>
+      </div>
+    </div>
+  </div>
+  <div data-role="footer">
+    <h4>底部工具栏</h4>
+  </div>
+</div>
+</body>
+</html>
