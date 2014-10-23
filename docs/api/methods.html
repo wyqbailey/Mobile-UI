@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 方法和工具</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head>
+<body>
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>方法和工具</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+	<div class="content-primary">
+
+	  <p>Jquery mobile在$.mobile对象上提供了一些实用的方法和工具。</p>
+
+
+		<dl>
+			<dt><code>$.mobile.changePage</code> (<em>方法</em>)</dt>
+			<dd>将显示页面（page组件）从一个切换到另一个。这个方法在jquery mobile内部被用于在点击链接或提交表单后加载和切换页面。</dd>
+
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>to</code> (<em>string或object</em>, 必须参数)
+<ul>
+				<li>String: 绝对或相对路径. (&quot;about/us.html&quot;)</li>
+							<li>Object: jQuery对象. (<code>$("#about")</code>)</li>
+						</ul>
+					</dd>
+
+					<dd><code>options</code> (<em>object</em>, 可选参数)
+						<ul>
+							<li>Properties:
+								<ul>
+									<li><code>transition</code> (<em>string</em>,	default:	$.mobile.defaultPageTransition)	页面切换时使用的过渡动画效果. </li>
+									<li><code>reverse</code> (<em>boolean</em>,	default:	false) 设定页面过渡动画效果是否反向（默认为false） </li>
+									<li><code>changeHash</code> (<em>boolean</em>,	default:	true) 设定页面切换时是否改变url的hash值 </li>
+									<li><code>role</code> (<em>string</em>,	default:	undefined) 设定显示页面的data-role值.默认值为undefined，表示data-role值取决于页面元素的属性设定.</li>
+									<li><code>pageContainer</code> (jQuery collection,	default:	$.mobile.pageContainer) 设定包含页面的元素，默认为body. </li>
+									<li><code>type</code> (<em>string</em>, default: &quot;get&quot;) 设定发送页面请求的方法("get"或"post").
+										<ul>
+											<li>只有当to参数值为一个url路径（字符串）时才能使用.</li>
+										</ul>
+									</li>
+									<li><code>data</code> (<em>object</em> or	string,	default: undefined)随ajax请求一同发送的数据.
+										<ul>
+											<li>只有当to参数值为一个url路径（字符串）时才能使用.</li>
+										</ul>
+									</li>
+									<li><code>reloadPage</code> (<em>boolean</em>, default: false) 强制重载页面，即使该页面在当前dom中已存在.
+										<ul>
+											<li>只有当to参数值为一个url路径（字符串）时才能使用.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</dd>
+
+				</dl>
+			</dd>
+
+			<dd>举例:
+			<pre>
+			<code>
+<strong>//transition to the "about us" page with a slideup transition</strong>
+$.mobile.changePage( "about/us.html", { transition: "slideup"} );
+
+<strong>//transition to the "search results" page, using data from a form with an ID of "search"" 	</strong>
+$.mobile.changePage( "searchresults.php", {
+	type: "post",
+	data: $("form#search").serialize()
+});
+
+<strong>//transition to the "confirm" page with a "pop" transition without tracking it in history	</strong>
+$.mobile.changePage( "../alerts/confirm.html", {
+	transition: "pop",
+	reverse: false,
+	changeHash: false
+});
+
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.loadPage</code> (<em>方法</em>)</dt>
+			<dd>该方法加载外部页面，初始化页面内容，并将其插入到当前dom中.该方法在会被changePage()调用（当其第一个参数为url地址时）.该方法不会对当前显示的page组件界面造成任何影响，所以可以用来在后台加载页面. 该方法在初始化页面并将其插入dom之后会返回一个与之对应的对象.</dd>
+
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>url</code> (<em>string或object</em>, 必须参数)相对或绝对路径.</dd>
+
+					<dd><code>options</code> (<em>object</em>, 可选参数)
+						<ul>
+							<li>Properties:
+								<ul>
+									<li><code>role</code> (<em>string</em>,	default:	undefined) 设定显示页面的data-role值.默认值为undefined，表示data-role值取决于页面元素的属性设定.</li>
+									<li><code>pageContainer</code> (jQuery collection,	default:	$.mobile.pageContainer) 设定包含页面的元素，默认为body.</li>
+									<li><code>type</code> (<em>string</em>, default: &quot;get&quot;) 设定发送页面请求的方法("get"或"post").
+									</li>
+									<li><code>data</code> (<em>object</em> or	string,	default: undefined)随ajax请求一同发送的数据. </li>
+									<li><code>reloadPage</code> (<em>boolean</em>, default: false) 强制重载页面，即使该页面在当前dom中已存在. </li>
+								</ul>
+							</li>
+						</ul>
+					</dd>
+
+				</dl>
+			</dd>
+
+			<dd>举例:
+			<pre>
+			<code>
+<strong>//load the "about us" page into the DOM</strong>
+$.mobile.loadPage( "about/us.html" );
+
+<strong>//load a "search results" page, using data from a form with an ID of "search"" 	</strong>
+$.mobile.loadPage( "searchresults.php", {
+	type: "post",
+	data: $("form#search").serialize()
+});
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>jqmData(), jqmRemoveData(), and jqmHasData()</code> (<em>方法</em>)</dt>
+			<dd>在使用jQuery Mobile时,要注意必须使用 <code>jqmData</code>和<code>jqmRemoveData</code>方法，而不是jquery中的<code>data</code>和<code>removeData</code>方法(还包括$.fn.data, $.fn.removeData, and the $.data, $.removeData, and $.hasData方法),这些方法既可以获取data属性，也可以设置data属性.</dd>
+			<dd>
+				<dl>
+					<dt>参数列表:</dt>
+					<dd>See jQuery's <a href="http://api.jquery.com/jQuery.data/">data</a> and <a href="http://api.jquery.com/jQuery.removeData/">removeData</a> methods</dd>
+					<dt>另外:</dt>
+					<dd>当通过data属性来筛选元素时，请使用jquery mobile的自定义选择器：<code>:jqmData()</code>, 它会自动给data属性增补命名空间.例如,相对传统的<code>$("div[data-role='page']")</code>,你应该使用<code>$("div:jqmData(role='page')")</code>,这样框架就会自动映射到<code>$("div[data-"+ $.mobile.ns +"role='page']")</code>上，你无须人工的给选择器加上命名空间字符串.</dd>
+				</dl>
+			</dd>
+
+
+
+
+			<dt><code>$.mobile.showPageLoadingMsg</code> (<em></em>)</dt>
+			<dd>显示页面加载提示信息,该信息通过$.mobile.loadingMessage来配置.</dd>
+
+			<dd>例如:
+			<pre>
+			<code>
+<strong>//cue the page loader</strong>
+$.mobile.showPageLoadingMsg();
+			</code>
+			</pre>
+
+			</dd>
+
+
+
+
+			<dt><code>$.mobile.hidePageLoadingMsg</code> (<em></em>)</dt>
+			<dd>隐藏页面加载提示信息, 该信息通过$.mobile.loadingMessage来配置.</dd>
+
+			<dd>举例:
+			<pre>
+			<code>
+<strong>//cue the page loader</strong>
+$.mobile.hidePageLoadingMsg();
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.path.parseUrl</code> (<em>方法</em>)</dt>
+			<dd>该方法将各种url地址解析成一个包含url地址各部分内容的对象。当解析不完整的url地址时，返回的对象中不会包含内容缺失的部分（如协议、主机等）。 Also, when parsing URLs that have no authority, such as tel: urls, the pathname property of the object will contain the data after the protocol/scheme colon.</dd>
+
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>url</code> (<em>string</em>, 必须参数)一个绝对或相对路径.</dd>
+
+					<dt>返回值</dt>
+					<dd>
+						<p>该方法返回一个包含url地址各部分内容的对象，对象的属性模仿浏览器location对象:</p>						<dl>
+                        <dt>hash</dt>
+							<dd>URL中的碎片部分，包括其中的#.</dd>
+							<dt>host</dt>
+							<dd>URL中的主机和端口号.</dd>
+							<dt>hostname</dt>
+							<dd>URL中的主机名.</dd>
+							<dt>href</dt>
+							<dd>被解析的原始URL地址.</dd>
+							<dt>pathname</dt>
+							<dd>URL中引用的目录或文件名.</dd>
+							<dt>port</dt>
+							<dd>URL中的端口号，大多数情况下网站使用默认端口号，所以该值为空.</dd>
+							<dt>protocol</dt>
+							<dd>URL中的通信协议，包括后面的':'.</dd>
+							<dt>search</dt>
+							<dd>URL中的查询部分，包括前面的'?'.</dd>
+						</dl>
+						<p>对象中还包含一些额外的属性，可以为一些如表单提交URL之类的路径提供解析:</p>
+						<dl>
+							<dt>authority</dt>
+							<dd>由用户名、密码和主机</dd>
+							<dt>directory</dt>
+							<dd>pathname中的目录名，不包含任何文件名.</dd>
+							<dt>domain</dt>
+							<dd>由通信协议和authority组成.</dd>
+							<dt>filename</dt>
+							<dd>pathname中的文件名，不包含任何目录名.</dd>
+							<dt>hrefNoHash</dt>
+							<dd>不包含hash值的url地址.</dd>
+							<dt>hrefNoSearch</dt>
+							<dd>不包含搜索部分和hash值的URL地址.</dd>
+							<dt>password</dt>
+							<dd>密码.</dd>
+							<dt>username</dt>
+							<dd>用户名.</dd>
+						</dl>
+					</dd>
+
+				</dl>
+			</dd>
+
+			<dd>Examples:
+			<pre>
+			<code>
+<strong>// Parsing the Url below results an object that is returned with the
+// following properties:
+//
+//  obj.href:         http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&amp;type=unread#msg-content
+//  obj.hrefNoHash:   http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&amp;type=unread
+//  obj.hrefNoSearch: http://jblas:password@mycompany.com:8080/mail/inbox
+//  obj.domain:       http://jblas:password@mycompany.com:8080
+//  obj.protocol:     http:
+//  obj.authority:    jblas:password@mycompany.com:8080
+//  obj.username:     jblas
+//  obj.password:     password
+//  obj.host:         mycompany.com:8080
+//  obj.hostname:     mycompany.com
+//  obj.port:         8080
+//  obj.pathname:     /mail/inbox
+//  obj.directory:    /mail/
+//  obj.filename:     inbox
+//  obj.search:       ?msg=1234&amp;type=unread
+//  obj.hash:         #msg-content</strong>
+
+var obj = $.mobile.path.parseUrl("http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234");
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.path.makePathAbsolute</code> (<em>方法</em>)</dt>
+			<dd>这是一个将相对路径转换成绝对路径的实用方法.</dd>
+			<dd>
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>relPath</code> (<em>string</em>, 必须参数)一个相对的文件名或路径.</dd>					<dd><code>absPath</code> (<em>string</em>, 必须参数)用以参照解析的绝对路径.</dd>
+					<dt>返回值</dt>
+					<dd>该方法返回与传入的相对地址相对应的绝对路径.</dd>
+
+				</dl>
+			</dd>
+			<dd>举例:
+			<pre>
+			<code>
+<strong>// Returns: /a/b/c/file.html</strong>
+var absPath = $.mobile.path.makePathAbsolute("file.html", "/a/b/c/bar.html");
+
+<strong>// Returns: /a/foo/file.html</strong>
+var absPath = $.mobile.path.makePathAbsolute("../../foo/file.html", "/a/b/c/bar.html");
+
+			</code>
+			</pre>
+			</dd>
+
+
+			<dt><code>$.mobile.path.makeUrlAbsolute</code> (<em>方法</em>)</dt>
+			<dd>将相对的URL地址转换成绝对URL地址的方法.</dd>
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>relUrl</code> (<em>string</em>, 必须参数)相对的URL地址.</dd>
+					<dd><code>absUrl</code> (<em>string</em>, 必须参数)用以参照解析的绝对URL地址.</dd>
+
+					<dt>返回值</dt>
+					<dd>该方法返回传入的相对地址对应的绝对URL地址.</dd>
+
+				</dl>
+			</dd>
+			<dd>举例:
+			<pre>
+			<code>
+<strong>// Returns: http://foo.com/a/b/c/file.html</strong>
+var absUrl = $.mobile.path.makeUrlAbsolute("file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: http://foo.com/a/foo/file.html</strong>
+var absUrl = $.mobile.path.makeUrlAbsolute("../../foo/file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: http://foo.com/bar/file.html</strong>
+var absUrl = $.mobile.path.makeUrlAbsolute("//foo.com/bar/file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: http://foo.com/a/b/c/test.html?a=1&amp;b=2</strong>
+var absUrl = $.mobile.path.makeUrlAbsolute("?a=1&amp;b=2", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: http://foo.com/a/b/c/test.html#bar</strong>
+var absUrl = $.mobile.path.makeUrlAbsolute("#bar", "http://foo.com/a/b/c/test.html");
+
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.path.isSameDomain</code> (<em>方法</em>)</dt>
+			<dd>对比两个URL是否是同源的（具有相同的域名）.</dd>
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>url1</code> (<em>string</em>, 必须参数) URL地址.</dd>
+					<dd><code>url2</code> (<em>string</em>, required) URL地址.</dd>
+
+					<dt>返回值</dt>
+					<dd>布尔值，如果同源则为真，否则为假.</dd>
+
+				</dl>
+			</dd>
+			<dd>举例:
+			<pre>
+			<code>
+<strong>// Returns: true</strong>
+var same = $.mobile.path.isSameDomain("http://foo.com/a/file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: false</strong>
+var same = $.mobile.path.isSameDomain("file://foo.com/a/file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: false</strong>
+var same = $.mobile.path.isSameDomain("https://foo.com/a/file.html", "http://foo.com/a/b/c/test.html");
+
+<strong>// Returns: false</strong>
+var same = $.mobile.path.isSameDomain("http://foo.com/a/file.html", "http://bar.com/a/b/c/test.html");
+
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.path.isRelativeUrl</code> (<em>方法</em>)</dt>
+			<dd>验证一个URL地址是否为相对地址.</dd>
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>url</code> (<em>string</em>, 必须参数) URL地址.</dd>
+
+					<dt>返回值</dt>
+					<dd>如果是相对地址则返回真，否则返回假.</dd>
+
+				</dl>
+			</dd>
+			<dd>举例:
+			<pre>
+			<code>
+<strong>// Returns: false</strong>
+var isRel = $.mobile.path.isRelativeUrl("http://foo.com/a/file.html");
+
+<strong>// Returns: true</strong>
+var isRel = $.mobile.path.isRelativeUrl("//foo.com/a/file.html");
+
+<strong>// Returns: true</strong>
+var isRel = $.mobile.path.isRelativeUrl("/a/file.html");
+
+<strong>// Returns: true</strong>
+var isRel = $.mobile.path.isRelativeUrl("file.html");
+
+<strong>// Returns: true</strong>
+var isRel = $.mobile.path.isRelativeUrl("?a=1&amp;b=2");
+
+<strong>// Returns: true</strong>
+var isRel = $.mobile.path.isRelativeUrl("#foo");
+
+
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.path.isAbsoluteUrl</code> (<em>method</em>)</dt>
+			<dd>验证一个URL地址是否是绝对地址.</dd>
+			<dd>
+
+				<dl>
+					<dt>参数列表</dt>
+					<dd><code>url</code> (<em>string</em>, 必须参数)URL地址.</dd>
+
+					<dt>返回值</dt>
+					<dd>如果传入的地址是绝对地址则返回真，否则返回假.</dd>
+
+				</dl>
+			</dd>
+			<dd>举例:
+			<pre>
+			<code>
+<strong>// Returns: true</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("http://foo.com/a/file.html");
+
+<strong>// Returns: false</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("//foo.com/a/file.html");
+
+<strong>// Returns: false</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("/a/file.html");
+
+<strong>// Returns: false</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("file.html");
+
+<strong>// Returns: false</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("?a=1&amp;b=2");
+
+<strong>// Returns: false</strong>
+var isAbs = $.mobile.path.isAbsoluteUrl("#foo");
+
+
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.base</code> (<em>方法, 属性</em>)</dt>
+			<dd>生成或获得base地址. TODO: document as public API is finalized.</dd>
+
+
+
+			<dt><code>$.mobile.silentScroll</code> (<em>方法</em>)</dt>
+			<dd>在不触发scroll事件的情况下将页面滚动到一个指定的位置.</dd>
+			<dd>
+				<dl>
+					<dt>参数列表:</dt>
+					<dd><code>yPos</code> (<em>number</em>, defaults to 0). 滚动目标点的Y坐标值.</dd>
+				</dl>
+			</dd>
+
+			<dd>举例:
+			<pre>
+			<code>
+<strong>//scroll to Y 100px</strong>
+$.mobile.silentScroll(100);
+			</code>
+			</pre>
+
+			</dd>
+
+
+			<dt><code>$.mobile.addResolutionBreakpoints</code> (<em>method</em>)</dt>
+			<dd>给HTML标签增加宽度断点类，格式如min-width-480px，max-width-480px.</dd>
+			<dd>
+				<dl>
+					<dt>参数列表:</dt>
+					<dd><code>values</code> (<em>number or array</em>). 一个数字或由多个数字组成的数组. 关于该方法的作用请参阅: <a href="mediahelpers.html">方向 &amp; 分辨率问题</a>.</dd>
+				</dl>
+			</dd>
+
+			<dd>举例:
+			<pre>
+			<code>
+<strong>//添加一个400px的宽度断点</strong>
+$.mobile.addResolutionBreakpoints(400);
+<strong>//添加两个宽度断点，一个是600px，一个是800px</strong>
+$.mobile.addResolutionBreakpoints([600,800]);
+			</code>
+			</pre>
+
+			</dd>
+
+
+
+			<dt><code>$.mobile.activePage</code> (<em>属性</em>)</dt>
+			<dd>返回当前视图中的正在显示的page组件.</dd>
+
+
+
+
+		</dl>
+	</div><!--/content-secondary -->
+
+	<div class="content-secondary">
+
+		<div data-role="collapsible" data-collapsed="true" >
+
+				<h3>More in this section</h3>
+
+				<ul data-role="listview"   data-dividertheme="d">
+
+					<li data-role="list-divider">API</li>
+					<li><a href="../../docs/api/globalconfig.html">默认参数配置</a></li>
+					<li><a href="../../docs/api/events.html">事件</a></li>
+					<li ><a href="../../docs/api/methods.html">方法 &amp; Utilities</a></li>
+					<li><a href="../../docs/api/mediahelpers.html">响应布局</a></li>
+					<li><a href="../../docs/api/themes.html">主题框架</a></li>
+				</ul>
+		</div>
+	</div>
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+</div>
+
+</div><!-- /page -->
+
+</body>
+</html>

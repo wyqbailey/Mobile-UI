@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 单选按钮</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f">
+		<h1>单选按钮</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+		
+		<form action="#" method="get">
+
+		<h2>单选按钮</h2>
+            <p>单选按钮使用标准type="radio"的input构造。默认的html单选按钮显示区域较小，不便于识别和操作。框架对单选按钮会自动进行优化，将其显示为一组较大的按钮组，便于识别、手指触摸和操作。单选按钮有两种显示模式，一种为水平排列，一种为垂直排列，可根据需要使用。</p>
+				
+<pre><code>	
+&lt;div data-role=&quot;fieldcontain&quot;&gt;
+    &lt;fieldset data-role=&quot;controlgroup&quot;&gt;
+    	&lt;legend&gt;Choose a pet:&lt;/legend&gt;
+         	&lt;input type=&quot;radio&quot; name=&quot;radio-choice-1&quot; id=&quot;radio-choice-1&quot; value=&quot;choice-1&quot; checked=&quot;checked&quot; /&gt;
+         	&lt;label for=&quot;radio-choice-1&quot;&gt;Cat&lt;/label&gt;
+
+         	&lt;input type=&quot;radio&quot; name=&quot;radio-choice-1&quot; id=&quot;radio-choice-2&quot; value=&quot;choice-2&quot;  /&gt;
+         	&lt;label for=&quot;radio-choice-2&quot;&gt;Dog&lt;/label&gt;
+
+         	&lt;input type=&quot;radio&quot; name=&quot;radio-choice-1&quot; id=&quot;radio-choice-3&quot; value=&quot;choice-3&quot;  /&gt;
+         	&lt;label for=&quot;radio-choice-3&quot;&gt;Hamster&lt;/label&gt;
+
+         	&lt;input type=&quot;radio&quot; name=&quot;radio-choice-1&quot; id=&quot;radio-choice-4&quot; value=&quot;choice-4&quot;  /&gt;
+         	&lt;label for=&quot;radio-choice-4&quot;&gt;Lizard&lt;/label&gt;
+    &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+
+		<p>默认的单选按钮是垂直排列的，效果如下：</p>
+
+	<div data-role="fieldcontain">
+	    <fieldset data-role="controlgroup">
+	    	<legend>Choose a pet:</legend>
+	         	<input type="radio" name="radio-pet-1" id="radio-pet-1" value="choice-1" checked="checked"  />
+	         	<label for="radio-pet-1">Cat</label>
+
+	         	<input type="radio" name="radio-pet-1" id="radio-pet-2" value="choice-2"  />
+	         	<label for="radio-pet-2">Dog</label>
+
+	         	<input type="radio" name="radio-pet-1" id="radio-pet-3" value="choice-3"  />
+	         	<label for="radio-pet-3">Hamster</label>
+
+	         	<input type="radio" name="radio-pet-1" id="radio-pet-4" value="choice-4"  />
+	         	<label for="radio-pet-4">Lizard</label>
+	    </fieldset>
+	</div>
+
+			<h2>水平的单选按钮</h2>
+
+			<p>要让单选按钮水平排列，只需给外层包裹的容器追加属性<code> data-type="horizontal"</code>即可。</p>
+
+	<code>
+	&lt;fieldset data-role=&quot;controlgroup&quot; <strong>data-type=&quot;horizontal&quot;</strong> &gt;
+	</code>
+
+	<div data-role="fieldcontain">
+	    <fieldset data-role="controlgroup" data-type="horizontal">
+	     	<legend>Layout view:</legend>
+	         	<input type="radio" name="radio-view" id="radio-view-a" value="list"  />
+	         	<label for="radio-view-a">List</label>
+	         	<input type="radio" name="radio-view" id="radio-view-b" value="grid"  />
+	         	<label for="radio-view-b">Grid</label>
+	         	<input type="radio" name="radio-view" id="radio-view-c" value="gallery"  />
+	         	<label for="radio-view-c">Gallery</label>
+	    </fieldset>
+	</div>
+
+	</form>
+	
+	</div><!--/content-primary -->		
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>导航</h3>
+
+				<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+				</ul>
+            <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>

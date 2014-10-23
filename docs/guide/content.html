@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 简介</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>添加HTML内容</h1>
+
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+		<div class="content-primary">
+		
+		<p>可以在body内添加任意的html内容，最常见的页面内容是三段式结构（头部、内容、底部），示例如下：</p>
+
+        <pre>
+    &lt;div data-role=&quot;page&quot;&gt;
+
+        &lt;div data-role=&quot;header&quot;&gt;
+            &lt;h1&gt;头部导航&lt;/h1&gt;
+        &lt;/div&gt;
+
+        &lt;div data-role=&quot;content&quot;&gt;
+            &lt;p&gt;这里是内容&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div data-role=&quot;footer&quot;&gt;
+            &lt;h4&gt;底部工具栏&lt;/h4&gt;
+        &lt;/div&gt;
+            
+    &lt;/div&gt;
+        </pre>
+
+          <p>Jquery mobile中使用data-role定义（调用）控件：</p>
+            <p>data-role=”page”：调用page组件，定义一个页面视图</p>
+            <p>data-role=”header”：定义标题栏</p>
+            <p>data-role=”content”：定义内容区</p>
+            <p>data-role=”footer”：定义底部栏</p>
+             <p>                   更多控件及高级用法，请见《jquery mobile技术手册》</p>
+             <p>                   至此，已经完成了一个最基本的web app页面，效果如下：</p>
+
+        <div data-role="header">
+				<h1>头部导航</h1>
+			</div>
+			<div class="ui-body ui-body-c">
+				<p>这里是内容</p>
+			</div>
+			<div class="ui-bar ui-bar-c">
+				<h4>底部工具栏</h4>
+			</div>
+
+		</div><!--/content-primary -->
+		
+		<div class="content-secondary">
+			
+			<div data-role="collapsible" data-collapsed="true" >
+				
+					<h3>导航</h3>
+					
+					<ol id="navlist" data-role="listview"  data-dividertheme="d">
+
+					</ol>
+                    <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+	
+	<div data-role="footer" class="footer-docs" >
+			<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+	</div>	
+	
+	
+</div><!-- /page -->
+
+</body>
+</html>

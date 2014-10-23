@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 简介</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>引入css和js文件</h1>
+
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+		<div class="content-primary">
+		
+		<h3>引入文件</h3>
+
+        <pre>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;../nresources/jqthemes/blue/jquery.mobile-1.0b1.css&quot;/&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../njs/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../njs/jquery.mobile-1.0b1.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../njs/iscroll.js&quot;&gt;&lt;/script&gt;
+        </pre>
+
+        <h4>注意</h4>
+
+		<p>先引入jquery，再引入jquery mobile；jquery版本必须是1.6以上。</p>
+        <p>iscroll.js在登录和闪屏页面不需要引用，只有在使用标题栏和工具栏固定定位的时候需要引用。</p>
+
+		</div><!--/content-primary -->
+		
+		<div class="content-secondary">
+			
+			<div data-role="collapsible" data-collapsed="true" >
+				
+					<h3>导航</h3>
+					
+					<ol id="navlist" data-role="listview"  data-dividertheme="d">
+
+					</ol>
+                    <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+	
+	<div data-role="footer" class="footer-docs" >
+			<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+	</div>	
+	
+	
+</div><!-- /page -->
+
+</body>
+</html>

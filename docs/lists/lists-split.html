@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 高级列表</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior" id="album-list">
+
+		<div data-role="header" data-theme="f">
+		<h1>高级列表</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+            <p>高级列表用于复杂数据的列表展示，如多行数据、图文混排、左侧小图标等。</p>
+            <p>框架为列表中常用的的文字排版（如标题、二级描述、图片、数量指示等）提供了一些规约。 </p>
+			<ul>
+				<li>要在列表项左侧增加缩略图，直接在列表项加入一个图片并使其成为第一子元素即可。框架会自动将图片缩放成80像素的正方形。如果想使用图标，给图片增加一个ui-li-icon类即可。</li>
+                <li>要在列表项右侧添加一个数量指示器，只需要将数字用包含ui-li-count类的容器包裹。</li>
+				<li>调整文字层级结构：使用标题元素来提高层架，使用p元素来降低层级。</li>
+				<li>创建位于列表项右侧的补充信息可以使用包含ui-li-aside类的元素来包裹。</li>
+			</ul>
+            <h2>多行信息列表</h2>
+            <ul data-role="listview" data-inset="true">
+			<li><a href="#">
+				<h3>Avery Walker</h3>
+				<p><strong>Re: Dinner Tonight</strong></p>
+				<p>Sure, let's plan on meeting at Highland Kitchen at 8:00 tonight. Can't wait! </p>
+				<p class="ui-li-aside"><strong>4:48</strong>PM</p>
+			</a></li>
+			<li><a href="#">
+				<h3>Amazon.com</h3>
+				<p><strong>4-for-3 Books for Kids</strong></p>
+				<p>As someone who has purchased children's books from our 4-for-3 Store, you may be interested in these featured books.</p>
+				<p class="ui-li-aside"><strong>12:47</strong>PM</p>
+			</a></li>
+			<li><a href="#">
+				<h3>Mike Taylor</h3>
+				<p><strong>Re: This weekend in Maine</strong></p>
+				<p>Hey little buddy, sorry but I can't make it up to vacationland this weekend. Maybe next weekend?</p>
+				<p class="ui-li-aside"><strong>6:24</strong>AM</p>
+			</a></li>
+		</ul>
+            <h2>图文混排列表</h2>
+		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+			<li><a href="#">
+				<img src="images/album-bb.jpg" />
+				<h3>Broken Bells</h3>
+				<p>Broken Bells</p>
+				</a><a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album
+			</a></li>
+			<li><a href="#">
+				<img src="images/album-hc.jpg" />
+				<h3>Warning</h3>
+				<p>Hot Chip</p>
+				
+			</a><a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album
+			</a></li>
+			<li><a href="#">
+				<img src="images/album-p.jpg" />
+				<h3>Wolfgang Amadeus Phoenix</h3>
+				<p>Phoenix</p>
+				</a><a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album
+			</a></li>
+			
+		</ul>
+            <h2>图标列表(含数量指示)</h2>
+            <ul data-role="listview" data-inset="true">
+			<li><a href="#"><img src="images/gf.png" alt="France" class="ui-li-icon">France <span class="ui-li-count">4</span></a></li>
+			<li><a href="#"><img src="images/de.png" alt="Germany" class="ui-li-icon">Germany <span class="ui-li-count">4</span></a></li>
+			<li><a href="#"><img src="images/gb.png" alt="Great Britain" class="ui-li-icon">Great Britain <span class="ui-li-count">0</span></a></li>
+			<li><a href="#"><img src="images/fi.png" alt="Finland" class="ui-li-icon">Finland <span class="ui-li-count">12</span></a></li>
+		</ul>
+		</div><!--/content-primary -->		
+
+		<div class="content-secondary">
+
+			<div data-role="collapsible" data-collapsed="true" >
+
+					<h3>导航</h3>
+						<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+						</ul>
+                        <script>
+                            $("#navlist").load("nav.html", function() {
+                                var p = $.mobile.path.parseUrl(window.location.href).filename;
+                                $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                                $("#navlist").listview('refresh');
+                            });
+                        </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+
+	<div data-role="footer" class="footer-docs" >
+			<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+	</div>
+
+	</div><!-- /page -->
+
+	</body>
+	</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 全屏模式的工具栏</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" data-fullscreen="true" class="type-interior">
+	
+	<div data-role="header" data-position="fixed" data-theme="f">
+		<h1>全屏模式的工具栏</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div>
+	
+	<div data-role="content">
+			<div class="content-primary">
+				<img src="images/photo-run.jpeg" width="640" height="480" alt="Photo Run">
+	
+		<p class="ui-body">这个页面展示了全屏模式的工具栏效果,在诸如想要把内容撑满全屏，标题栏和底部栏随着点击而显示和隐藏的页面（如iOS中的图片浏览界面）经常采用这一技巧。</p>
+		
+		<p class="ui-body">用法：在页面的page控件上调用 <code>data-fullscreen="true"</code> 属性，并且还要给工具栏（header、footer）追加<code>data-position="fixed"</code> 属性。</p>
+		
+		<p class="ui-body">注意在这种模式下工具栏可见时会遮住页面的部分内容，你可以通过轻击来改变工具栏的的可见性。</p>
+			       
+
+				</div><!--/content-primary -->		
+
+				<div class="content-secondary">
+
+					<div data-role="collapsible" data-collapsed="true" >
+
+							<h3>导航</h3>
+
+							<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+							</ul>
+                        <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+					</div>
+				</div>		
+
+			</div><!-- /content -->
+
+			<div data-role="footer" class="footer-docs"  data-position="fixed">
+					<h1>Fullscreen Fixed Footer</h1>
+			</div>
+
+			</div><!-- /page -->
+
+			</body>
+			</html>

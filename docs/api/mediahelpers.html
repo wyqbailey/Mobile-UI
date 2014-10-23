@@ -1,0 +1,133 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 响应布局</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="zh-cn" http-equiv="Content-Language">
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+    
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>响应布局</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content" >
+			
+			<div class="content-primary">
+			<h2>媒体查询助手 Media Query Helper Classes</h2>
+<p class="ui-bar-e ui-body"><strong>注意: 这个特性还是beta版，前途未知，推荐使用CSS3的媒体查询.</strong></p>
+			<p>jQuery Mobile 添加一个classes到<code>HTML</code>中来模拟浏览器的方向类似于 min/max-width CSS media queries.这个classes会在加载、重置大小和方向改变时更新，允许你在css中截断这些classes,以创建 <a href="http://www.alistapart.com/articles/responsive-web-design/">快速布局</a> - 即使浏览器不支持媒体查询功能! </p>
+			
+			<h3>方向类 Orientation Classes </h3>
+
+			<p>HTML元素总包含 "portrait" or "landscape"两个类，其值取决于设备是横向还是竖向.你可以向下面一样在css里定义它们:</p>
+			<pre>
+			<code>
+.portrait {
+	/* 纵向的变化定义! */
+}
+.landscape {
+	/* 纵向的变化定义! */
+}			
+			</code>
+			</pre>
+			
+			<h3>最小/最大宽度断点类 Min/Max Width Breakpoint Classes</h3>
+			<p>默认情况下，我们提供如下宽度断点： <code>320</code>,<code>480</code>,<code>768</code>,<code>1024</code>. 对应的class: "min-width-320px", "max-width-480px", 意味着它们可以应用在 替换(或附加) 模拟媒体查询值.</p>
+<pre>
+			<code>
+.myelement { 
+	float: none;
+}			
+.min-width-480px .myelement {
+	float: left;
+}		
+			</code>
+</pre>		
+			
+			<p>Jquery Mobile中的许多插件都利用了这些宽度折断点，举个例子：当浏览器宽度在480px以上时，表单元素会浮动在label的旁边. 约束表单文本框的CSS在定义这个行为时是这样 :</p>
+			
+<pre>
+			<code>
+label.ui-input-text { 
+	display: block; 
+}
+.min-width-480px label.ui-input-text { 
+	display: inline-block; 
+}
+			</code>
+</pre>		
+
+			<h3>新增宽度断点 Adding Width Breakpoints</h3>
+		<p>利用自定义的宽度断点, jQuery Mobile 提供了 <code>$.mobile.addResolutionBreakpoints </code> 方法, 它接受一个单一的数字或数组，当使用到他们时，就会增加一个最小/最大的宽度断点。</p>
+<pre>
+			<code>
+//add a min/max class for 1200 pixel widths			
+$.mobile.addResolutionBreakpoints(1200);
+
+//add min/max classes for 1200, and 1440 pixel widths			
+$.mobile.addResolutionBreakpoints([1200, 1440]);
+			</code>
+</pre>	
+
+<h3>运行媒体查询 Running Media Queries</h3>
+<p>jQuery Mobile提供了一个称为方法，允许你检测是否支持媒体查询. 只需要调用 <code>$.mobile.media()</code>，然后传递一些参数（media type or query）. 如果此媒体支持，则返回true，否则为false</p>
+
+<pre>
+			<code>
+//test for screen media type
+$.mobile.media("screen");
+
+//test  a min-width media query
+$.mobile.media("screen and (min-width: 480px)");
+
+//test for iOS retina display
+$.mobile.media("screen and (-webkit-min-device-pixel-ratio: 2)");
+
+			</code>
+</pre>
+					
+	</div><!--/content-secondary -->		
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>More in this section</h3>
+				
+				<ul data-role="listview"   data-dividertheme="d">
+                    
+                    <li data-role="list-divider">API</li>
+                    <li><a href="../../docs/api/globalconfig.html">默认配置</a></li>
+                    <li><a href="../../docs/api/events.html">事件</a></li>
+                    <li><a href="../../docs/api/methods.html">方法</a></li>
+                    <li ><a href="../../docs/api/mediahelpers.html">响应布局</a></li>
+                    <li><a href="../../docs/api/themes.html">主题</a></li>
+				</ul>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 The jQuery Project.si-tech UID</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>

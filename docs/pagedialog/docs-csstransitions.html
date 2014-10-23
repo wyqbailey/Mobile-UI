@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI Docs - css动画</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior" >
+
+		<div data-role="header">
+		<h1>css动画</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">		
+		<h2>css动画</h2>
+        <p>Mobile UI中包含的css3动画，除了可用在page切换之外，同样可用于其他元素。</p>
+		<p>使用css动画的方法很简单，只需在需要动画效果的元素上追加class，class的名称使用框架提供的5种动画名称。如某个div需要滑动效果，则使用class="slide"，每种动画效果包含两种方式，一种是in（进入界面），一种是out（退出界面）。 </p>
+		<p>另外，每种动画都可以通过追加reverse类，使其呈现反方向的动画效果。如class="slide in"的效果是从右向左滑入，class="slide in reverse"则是从左向右滑入。</p>
+<h3>slide</h3>
+            <p>slide的动画效果是左右滑动，class="slide in"为从右向左滑入，class="slide out"为从右向左滑出，class="slide in reverse"为从左向右滑入，class="slide out reverse"为从左向右滑出</p>
+<code>
+&lt;div class=&quot;slide in&quot;&gt;我会滑动进入界面&lt;/div&gt;
+</code>
+            <div class="slide in">我会滑动进入界面</div>
+<code>
+&lt;div class=&quot;slide out&quot;&gt;我会滑动退出界面&lt;/div&gt;
+</code>
+            <div class="slide out">我会滑动退出界面</div>
+<code>
+&lt;div class=&quot;slide in reverse&quot;&gt;我会从左往右滑入界面&lt;/div&gt;
+</code>
+            <div class="slide in reverse">我会从左往右滑入界面</div>
+            <h3>slideup</h3>
+            <p>slideup的动画效果是向上滑动，class="slideup in"为从下向上滑入，class="slideup out reverse"为从上往下滑出，class="slideup out"和class="slideup in reverse"没有位移效果。</p>
+            <button class="sdup" data-inline="true">slideup in</button>
+            <button class="sdup" data-inline="true">slideup out</button>
+            <button class="sdup" data-inline="true">slideup in reverse</button>
+            <button class="sdup" data-inline="true">slideup out reverse</button>
+            <script>
+                $("button.sdup").click(function(){
+                    var c = $(this).text();
+                    $("#slideupcss").removeClass().addClass(c);
+                });
+            </script>
+            <div id="slideupcss" style="width: 400px; height: 40px; background: #fff">我看七十二变</div>
+
+            <h3>slidedown</h3>
+            <p>slidedown的动画效果是向下滑动，class="slidedown in"为从上向下滑入，class="slidedown out reverse"为从下往上滑出，class="slidedown out"和class="slidedown in reverse"没有位移效果。</p>
+            <button class="sddn" data-inline="true">slidedown in</button>
+            <button class="sddn" data-inline="true">slidedown out</button>
+            <button class="sddn" data-inline="true">slidedown in reverse</button>
+            <button class="sddn" data-inline="true">slidedown out reverse</button>
+            <script>
+                $("button.sddn").click(function(){
+                    var c = $(this).text();
+                    $("#slidedowncss").removeClass().addClass(c);
+                });
+            </script>
+            <div id="slidedowncss" style="width: 400px; height: 40px; background: #fff">我看七十二变</div>
+
+            <h3>fade</h3>
+            <p>fade的动画效果是渐隐渐现，class="fade in"为渐现，class="fade out"为渐隐，没有"fade out reverse""fade in reverse"效果。</p>
+            <button class="fd" data-inline="true">fade in</button>
+            <button class="fd" data-inline="true">fade out</button>
+            <script>
+                $("button.fd").click(function(){
+                    var c = $(this).text();
+                    $("#fadecss").removeClass().addClass(c);
+                });
+            </script>
+            <div id="fadecss" style="width: 400px; height: 40px; background: #fff">我看七十二变</div>
+
+            <h3>pop</h3>
+            <p>pop的动画效果是弹出、收缩，class="pop in"为弹出，class="pop out reverse"为收缩，class="pop out"和class="pop in reverse"没有效果。</p>
+            <button class="pp" data-inline="true">pop in</button>
+            <button class="pp" data-inline="true">pop out</button>
+            <button class="pp" data-inline="true">pop in reverse</button>
+            <button class="pp" data-inline="true">pop out reverse</button>
+            <script>
+                $("button.pp").click(function(){
+                    var c = $(this).text();
+                    $("#popcss").removeClass().addClass(c);
+                });
+            </script>
+            <div id="popcss" style="width: 400px; height: 40px; background: #fff">我看七十二变</div>
+
+            <h3>flip</h3>
+            <p>flip的动画效果是翻转，class="flip in"和"flip in reverse"为翻转进入，class="flip out"和"flip out reverse"为翻转退出。</p>
+            <button class="fp" data-inline="true">flip in</button>
+            <button class="fp" data-inline="true">flip out</button>
+            <button class="fp" data-inline="true">flip in reverse</button>
+            <button class="fp" data-inline="true">flip out reverse</button>
+            <script>
+                $("button.fp").click(function(){
+                    var c = $(this).text();
+                    $("#flipcss").removeClass().addClass(c);
+                });
+            </script>
+            <div id="flipcss" style="width: 400px; height: 40px; background: #fff">我看七十二变</div>
+
+		
+		
+				</div><!--/content-primary -->
+
+				<div class="content-secondary">
+
+					<div data-role="collapsible" data-collapsed="true" >
+
+							<h3>导航</h3>
+
+                <ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+                </ul>
+                <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+					</div>
+				</div>		
+
+			</div><!-- /content -->
+
+			<div data-role="footer" class="footer-docs" >
+					<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+			</div>
+
+			</div><!-- /page -->
+
+<div id="transition-success" data-role="page" >
+
+	<div data-role="header" >
+		<h1>Ta-da!</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<p>That was an animated page transition effect that we added with a <code>data-transition</code> attribute on the link.</p>
+		<p>Since it uses CSS transforms, this should be hardware accelerated on many mobile devices.</p>
+		<p>What do you think?</p>
+		<a href="docs-transitions.html" data-role="button"  data-rel="back">I like it</a>
+	</div>
+</div>
+
+			</body>
+			</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Mobile UI - Footer 配置</title>
+    <link rel="stylesheet" href="../../themes/blue/jquery.mobile-1.0b1.css"/>
+
+    <link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+    <script src="../../js/jquery.js"></script>
+
+    <script src="../_assets/js/jqm-docs.js"></script>
+    <script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head>
+<body>
+
+<div data-role="page" class="type-interior">
+
+    <div data-role="header" data-theme="f">
+        <h1>Footer 配置</h1>
+        <a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse"
+           class="ui-btn-right jqm-home">主页</a>
+    </div>
+    <!-- /header -->
+
+    <div data-role="content">
+        <div class="content-primary">
+            <h2>底部栏的html结构</h2>
+
+            <p>底部栏和标题栏的html结构差不多，除了data-role="footer"属性不同。</p>
+
+            <div class="highlight">
+<pre>
+<span class="nt">&lt;div</span> <span class="na"> data-role=</span><span class="s">"footer"</span><span
+        class="nt">&gt;</span>
+	<span class="nt">&lt;h4&gt;</span>Footer内容<span class="nt">&lt;/h4&gt;</span> 
+<span class="nt">&lt;/div&gt;</span> 
+</pre>
+            </div>
+
+
+            <div data-role="footer" data-position="inline">
+                <h4>Footer 内容</h4>
+            </div>
+
+            <p>底部栏的设置使用比较灵活，不会像header一样自动生成一些按钮之类,根据需要自行填充内容。</p>
+
+
+            <h2>添加按钮</h2>
+
+            <p>在footer中的任何有效链接都会被渲染成按钮，为了节省有限的空间，所有的按钮都是以内联样式存在，按钮默认只包含图标和文字，而没有内边距,如果需要设定内边距，请在footer中调用 <code>class="ui-bar"</code>。</p>
+			
+
+<pre><code>
+    &lt;div data-role=&quot;footer&quot; class=&quot;ui-bar&quot;&gt;
+    &lt;a href=&quot;index.html&quot; data-role=&quot;button&quot; data-icon=&quot;delete&quot;&gt;Remove&lt;/a&gt;
+    &lt;a href=&quot;index.html&quot; data-role=&quot;button&quot; data-icon=&quot;plus&quot;&gt;Add&lt;/a&gt;
+    &lt;a href=&quot;index.html&quot; data-role=&quot;button&quot; data-icon=&quot;arrow-u&quot;&gt;Up&lt;/a&gt;
+    &lt;a href=&quot;index.html&quot; data-role=&quot;button&quot; data-icon=&quot;arrow-d&quot;&gt;Down&lt;/a&gt;
+    &lt;/div&gt;
+</code></pre>
+
+            <p>效果如下：</p>
+
+            <div data-role="footer" class="ui-bar" data-position="inline">
+                <a href="#" data-icon="delete">Remove</a>
+                <a href="#" data-icon="plus">Add</a>
+                <a href="#" data-icon="arrow-u">Up</a>
+                <a href="#" data-icon="arrow-d">Down</a>
+            </div>
+
+            <p>如果需要把几个按钮组合成一个按钮组，则使用包含<code> data-role=&quot;controlgroup&quot;</code> 和 <code>data-type=&quot;horizontal&quot;</code>属性的容器将一组按钮包裹起来。按钮组的具体用法请见按钮类控件文档。</p>
+
+            <code>&lt;div data-role=&quot;controlgroup&quot; data-type=&quot;horizontal&quot;&gt;</code>
+
+            <h2>在footer中添加其他元素</h2>
+
+            <p>除了按钮外，其他元素也能被添加到footer中,例如添加一个select元素到footer中:</p>
+
+
+            <div data-role="footer" class="ui-bar" data-position="inline">
+                <label for="select-choice-1">Shipping:</label>
+                <select name="select-choice-1" id="select-choice-1" >
+                    <option value="standard">Standard: 7 day</option>
+                    <option value="rush">Rush: 3 days</option>
+                    <option value="express">Express: next day</option>
+                    <option value="overnight">Overnight</option>
+                </select>
+            </div>
+
+        </div>
+        <!--/content-primary -->
+
+        <div class="content-secondary">
+
+            <div data-role="collapsible" data-collapsed="true" >
+
+                <h3>导航</h3>
+
+                <ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+                </ul>
+                <script>
+                    $("#navlist").load("nav.html", function() {
+                        var p = $.mobile.path.parseUrl(window.location.href).filename;
+                        $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                        $("#navlist").listview('refresh');
+                    });
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="footer" class="footer-docs" >
+        <p>&copy; 2011 si-tech UID </p>
+    <p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+    </div>
+
+</div>
+<!-- /page -->
+
+</body>
+</html>

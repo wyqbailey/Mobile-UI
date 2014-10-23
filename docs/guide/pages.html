@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 简介</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head>
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>多个页面相互链接</h1>
+
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+		<div class="content-primary">
+		
+		<h3>页面和page组件的区别</h3>
+
+        <p>这里所说的页面，即指html文档（页面），一个文档就是一个页面。框架还提供了一种page组件，使用<code>&lt;div data-role=&quot;page&quot;</code>定义，每个page组件实际上定义了一个显示界面（视图）。</p>
+        <p>一般情况下，一个项目中肯定会有多个页面，每个页面中即可包含多个page组件，也可只包含一个page组件。我们建议在开发中每个页面只包含一个page组件，如果page组件的结构非常简单，则可考虑多个page组件组合在一个页面（这样更节省带宽，界面之间的切换也更快）。</p>
+
+        <h3>同页面page组件之间的切换跳转</h3>
+
+        <p>一个包含多个page组件的页面，永远只会显示一个page视图，其余的都被隐藏。page组件之间可以通过超链接相互跳转切换，举例如下：</p>
+        <pre>
+        一个页面内包含两个page组件，分别是home和download（使用id定义）,home界面中的一个超链接链向download界面：
+        <code>&lt;div id=&quot;home&quot; data-role=&quot;page&quot;&gt;...&lt;a href=&quot;#download&quot;&gt;下载&lt;/a&gt;...&lt;/div&gt;</code>
+        <code>&lt;div id=&quot;download&quot; data-role=&quot;page&quot;&gt;...&lt;/div&gt;</code>
+        </pre>
+        <p>点击下载链接后，显示界面就会使用动画效果从home组件切换到download组件，home组件隐藏。</p>
+
+        <h3>不同页面之间的相互链接</h3>
+
+        <p>页面之间的链接跳转和我们平常使用超链接没有区别，直接将超链接的地址指向目标文件的路径即可：<code>&lt;a href=&quot;./path/file.html&quot;&gt;文件&lt;/a&gt;</code>。</p>
+        <p>唯一不同的是，如果项目中启用了异步模式（ajaxEnabled: true），页面之间的跳转也会使用ajax加载目标页面，然后使用动画效果切换显示界面，而不是直接刷新页面。（由于目前异步加载模式在android手机上表现不佳，默认是关闭的）</p>
+
+         <h3>使用js切换视图或界面</h3>
+         <p>框架提供了$.mobile.changePage方法进行视图或页面的切换，具体用法请参考技术手册。</p><h3>&nbsp;</h3>
+</div><!--/content-primary -->
+		
+		<div class="content-secondary">
+			
+			<div data-role="collapsible" data-collapsed="true" >
+				
+					<h3>导航</h3>
+					
+					<ol id="navlist" data-role="listview"  data-dividertheme="d">
+
+					</ol>
+                    <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+	
+	<div data-role="footer" class="footer-docs" >
+			<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+	</div>	
+
+	
+</div><!-- /page -->
+
+</body>
+</html>

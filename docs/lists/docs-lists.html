@@ -1,0 +1,130 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 列表控件</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f">
+		<h1>列表控件概览</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+			<div class="content-primary">
+			<h2>普通链接列表</h2>
+			<p>最简单的列表组件其实就是包含data-role=”listview”的一个无序列表，每个列表项都含有一个链接。Jquery mobile会自动应用必要的样式，在每个列表项的右侧追加右箭头图标，使其宽度充满屏幕，这样对移动设备更友好。当你点击一个列表项时，实际上就是点击了一个链接，这会触发一个ajax请求，最终切换界面显示。一个简单的基本链接列表的代码如下：</p>
+			
+<pre><code>
+&lt;ul data-role=&quot;listview&quot; data-theme=&quot;g&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;acura.html&quot;&gt;Acura&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;audi.html&quot;&gt;Audi&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;bmw.html&quot;&gt;BMW&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+			
+			<a href="lists-ul.html" data-role="button" data-icon="arrow-r" data-iconpos="right">普通链接列表示例</a>
+			
+			<h2>嵌套列表</h2>
+			<p>给一个列表项嵌入一个ul或ol，就可以创建一个嵌套列表。当点击列表项时，jquery mobile会自动生成一个新的使用列表项名称作为页面标题的page组件来显示其子列表，这些动态的嵌套列表默认使用主题中的b皮肤（蓝色）以便表明他们是第二级导航。你可以嵌套若干级列表，所有嵌套关系生成的新的page组件都有框架自动控制。</p>
+			<p>	如果想改变嵌套列表的样式，使用data-theme属性指定即可。</p>
+			<a href="lists-nested.html" data-role="button" data-icon="arrow-r" data-iconpos="right">嵌套列表示例</a>
+			
+			<h2>有序列表</h2>
+			<p>	也可以使用ol来创建有序列表组件，可用于如搜索结果或电影排行榜之类的地方。生成有序列表时，jquery mobile会尝试使用css为列表添加序号显示，如果不行就使用javascript来插入数字。</p>
+			
+			<a href="lists-ol.html" data-role="button" data-icon="arrow-r" data-iconpos="right">有序列表示例</a>
+			
+			<h2>只读列表</h2>
+			<p>	列表组件也可以用来只显示只读的一些不具备交互性的信息，只读列表依然使用ul或ol创建，只是每个列表项内没有链接而已。只读列表默认使用c皮肤而且字体较小，这样好节省点空间。</p>
+			
+			<a href="lists-readonly.html" data-role="button" data-icon="arrow-r" data-iconpos="right">只读列表示例</a>
+			
+			<h2>按钮分离列表</h2>
+			<p>假如一个列表项需要多个交互操作，就可以使用按钮分离列表，它的每个列表项可以提供两块交互区域：列表文字和右侧的小图标。要创建一个按钮分离列表，只需要在列表项内再追加一个链接，这样框架就会自动在两个链接中间加入一条分割线，将第二个链接变成一个纯图标的按钮，并将链接文字设置为按钮的title属性值以提供易用性支持。</p>
+			<p>你可以通过data-split-icon属性来设定列表项右侧的小图标，当然还可以通过data-split-theme属性来设置其主题皮肤。</p>
+			
+			<a href="lists-split.html" data-role="button" data-icon="arrow-r" data-iconpos="right">按钮分离列表示例</a>
+			
+			
+			<h2>列表分割符</h2>
+			<p>任意一个列表项都可以通过追加data-role=”list-divider”属性转变成一个列表分隔符以便分组整理列表项。列表分隔符默认使用b皮肤以便与普通列表项区别开，但你也可以使用data-dividertheme属性来设定其他皮肤。</p>
+
+			<a href="lists-divider.html" data-role="button" data-icon="arrow-r" data-iconpos="right">列表分隔符示例</a>
+			
+			
+			<h2>搜索栏</h2>
+			<p>Jquery mobile提供了一个非常简单的办法给列表组件增加一个基于客户端的搜索栏。要实现这点，只需给列表组件追加一个data-fliter=”true”属性。这样框架就会给列表自动增加一个搜索栏，同时为其增加根据输入文字过滤列表项的行为。搜索栏的默认显示文字是“Fliter items…”，配置这段文字有两个办法：一是使用$.mobile.listview.prototype.options.filterPlaceholder这个配置项来定义默认显示的字符串；二是在列表组件上追加data-fliter-placeholder属性。默认情况下搜索栏继承列表组件的皮肤，当然你可以通过data-fliter-theme属性来配置其他皮肤。</p>
+
+			<a href="lists-search.html" data-role="button" data-icon="arrow-r" data-iconpos="right">搜索栏示例</a>
+			
+			
+			<h2>文字排版和数量指示</h2>
+			<p>框架为列表中常用的的文字排版（如标题、二级描述、数量指示等）提供了一些规约。 </p>
+			
+			<ul>
+				<li>要在列表项右侧添加一个数量指示器，只需要将数字用包含ui-li-count类的容器包裹。</li>
+				<li>调整文字层级结构：使用标题元素来提高层架，使用p元素来降低层级。</li>
+				<li>创建位于列表项右侧的补充信息可以使用包含ui-li-aside类的元素来包裹。</li>
+			</ul>
+			<a href="lists-count.html" data-role="button" data-icon="arrow-r" data-iconpos="right">列表数量指示示例</a>
+			<a href="lists-formatting.html" data-role="button" data-icon="arrow-r" data-iconpos="right">列表中文字排版示例</a>
+			
+			<h2>缩略图和图标</h2>
+			<p>要在列表项左侧增加缩略图，直接在列表项加入一个图片并使其成为第一子元素即可。框架会自动将图片缩放成80像素的正方形。如果想使用图标，给图片增加一个ui-li-icon类即可。</p>
+			<a href="lists-thumbnails.html" data-role="button" data-icon="arrow-r" data-iconpos="right">包含缩略图列表示例</a>
+		 	<a href="lists-icons.html" data-role="button" data-icon="arrow-r" data-iconpos="right">包含图标列表示例</a>
+			
+			<h2>内嵌列表</h2>
+			<p>列表默认宽度铺满了整个屏幕。假设列表作为页面中某个区域的一部分，使用成有一定边距和圆角的内嵌列表在视觉上更合理。给列表组件增加data-inset=”true”即可做到这一点。</p>
+			
+			<a href="lists-inset.html" data-role="button" data-icon="arrow-r" data-iconpos="right">内嵌列表示例</a>
+			
+			<h2>更新列表</h2>
+			<p>如果你为列表组件追加了列表项，你需要调用refresh方法来刷新列表显示，代码如：$('ul').listview('refresh');</p>
+			
+			</div><!--/content-primary -->
+
+			<div class="content-secondary">
+
+				<div data-role="collapsible" data-collapsed="true" >
+
+						<h3>导航</h3>
+						<ul id="navlist" data-role="listview"  data-dividertheme="d">
+							
+						</ul>
+                        <script>
+                            $("#navlist").load("nav.html", function() {
+                                var p = $.mobile.path.parseUrl(window.location.href).filename;
+                                $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                                $("#navlist").listview('refresh');
+                            });
+                        </script>
+				</div>
+			</div>		
+
+		</div><!-- /content -->
+
+		<div data-role="footer" class="footer-docs" >
+				<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+		</div>
+
+		</div><!-- /page -->
+
+		</body>
+		</html>
+	

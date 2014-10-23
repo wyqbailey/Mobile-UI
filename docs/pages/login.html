@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mobile UI - Pages</title>
+<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+<script src="../../js/jquery.js"></script>
+<script src="../_assets/js/jqm-docs.js"></script>
+<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head>
+<body>
+<div data-role="page" class="type-interior">
+  <div data-role="header" data-theme="f">
+    <h1>登陆页</h1>
+    <a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a> </div>
+  <!-- /header -->
+  
+  <div data-role="content">
+    <div class="content-primary">
+      <h3>设计参考</h3>
+      
+          <ul class="piclist">
+            <li><img data-role="imgview" src="../images/login.jpg"></li>
+            <li><img data-role="imgview" src="../images/login2.jpg"></li>
+            <li><img data-role="imgview" src="../images/login3.jpg"></li>
+            <li><img data-role="imgview" src="../images/login4.jpg"></li>
+            <li><img data-role="imgview" src="../images/login5.jpg"></li>
+            <li><img data-role="imgview" src="../images/login6.jpg"></li>
+            <li><img data-role="imgview" src="../images/login7.jpg"></li>
+            <li><img data-role="imgview" src="../images/login8.jpg"></li>
+            <li><img data-role="imgview" src="../images/login9.jpg"></li>
+          </ul>
+                <div class="clear"></div>
+
+      <p><a target="_blank" href="../../download/demo/npage/login.html">点击查看html页面</a></p>
+      <h3>页面说明</h3>
+      <p>
+      <ol>
+      	<li>明确项目需求，确认登录页面所需要的功能组件，如“记住密码”“自动登录”“找回密码”“注册”等等。</li>
+        <li>由于登录页面的视觉设计自由度较高，建议在样式表编写过程中为页面的各组件元素如按钮等<strong>单独定义样式</strong>，不要使用全局样式。</li>
+      </ol>
+      <h4 style="color:red">*修改界面元素样：请参考 <a href="../guide/style.html">添加自定义样式</a></h4>
+    
+    </div>
+    <!--/content-primary -->
+    
+    <div class="content-secondary">
+      <div data-role="collapsible" data-collapsed="true" >
+        <h3>导航</h3>
+        <ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+        </ul>
+          <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+      </div>
+    </div>
+  </div>
+  <!-- /content -->
+  
+  <div data-role="footer" class="footer-docs" >
+    <p>&copy; 2011 si-tech UID</p>
+    <p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+  </div>
+</div>
+<!-- /page -->
+
+</body>
+</html>

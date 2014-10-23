@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 翻转开关</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f">
+		<h1>翻转开关</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+		
+		<form action="#" method="get">
+
+				<h2>翻转开关</h2>
+            <p>翻转开关一般用于控制“开/关”、“是/否”等二元选项，常用于设置选项中。翻转开关使用仅含有两个option的select构造，默认第一个option会被显示为打开状态。</p>
+				
+<pre><code>	
+&lt;div data-role=&quot;fieldcontain&quot;&gt;
+	&lt;label for=&quot;slider&quot;&gt;Select slider:&lt;/label&gt;
+	&lt;select name=&quot;slider&quot; id=&quot;slider&quot; data-role=&quot;slider&quot;&gt;
+		&lt;option value=&quot;off&quot;&gt;Off&lt;/option&gt;
+		&lt;option value=&quot;on&quot;&gt;On&lt;/option&gt;
+	&lt;/select&gt; 
+&lt;/div&gt;
+</code></pre>	
+		<div data-role="fieldcontain">
+			<label for="slider">Flip switch:</label>
+			<select name="slider" id="slider" data-role="slider">
+				<option value="off">关闭</option>
+				<option value="on">打开</option>
+			</select> 
+		</div>
+
+	</form>
+	
+	</div><!--/content-primary -->		
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>导航</h3>
+
+				<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+				</ul>
+            <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>
+

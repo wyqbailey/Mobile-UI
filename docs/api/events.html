@@ -1,0 +1,169 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 事件</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="zh-cn" http-equiv="Content-Language">
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+    
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>事件</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+
+		<p>jQuery Mobile提供了多种基于原生事件的客户端事件， 注意：这些事件构建在已经存在的触摸事件、鼠标、window事件的基础上，依靠这些事件机制，你可以横跨手持设备和桌面环境。你可以通过<code>live()</code> 或 <code>bind()</code>绑定到其他jquery事件上.</p>
+		
+		<h2>触摸事件</h2>
+		<dl>
+			<dt>轻击 <code>tap</code></dt>
+			<dd>在快速、完整地点击后出发.</dd>
+			
+			<dt>轻击不放 <code>taphold</code></dt>
+			<dd>轻击并保持不放的情况下触发（大约一秒）.</dd>
+			
+			<dt>滑动 <code>swipe</code></dt>
+			<dd>一秒内最少横向滑动30px（纵向20px）即可出发.</dd>
+			
+			<dt>左滑动 <code>swipeleft</code></dt>
+			<dd>向左滑动时触发.</dd>
+			
+			<dt>右滑动 <code>swiperight</code></dt>
+			<dd>向右滑动时触发.</dd>
+			</dl>
+		<h2>设备方向改变</h2>
+		<dl>
+			<dt><code>方向改变</code></dt>
+			<dd>在方向改变时触发 (横放或竖放). 当绑定此事件,你的回调函数可以加入第二个参数，作用为描述设备横或纵向的属性 <code>方向orientation</code> （"portrait" or "landscape"）.这些值也会作为class值加入到html的元素中，使你可以通过css中的选择器改变他们的样式。注意：当浏览器不支持orientationChange事件的时候可以通过resize 事件绑定。</dd>
+		</dl>
+			
+		<h2>滚屏事件 Scroll events</h2>
+		<dl>
+			<dt>开始滚动 <code>scrollstart</code></dt>
+			<dd>在开始滚动时触发，注意：iOS设备在滚屏的时候会禁止对DOM对象的操作，当滚动结束时解禁。我们正在研究如何可以再滚动的时候对DOM进行操作.</dd>
+		</dl>
+		<dl>
+			<dt>滚动结束 <code>scrollstop</code></dt>
+			<dd>滚动结束时触发.</dd>
+		</dl>	
+		
+		<h2>页面显示或隐藏事件 Page show/hide events</h2>
+		<p>在Jquery Mobile中，无论页面显示或是隐藏，该页面都会触发两个事件。哪个事件被触发取决于此页面被显示还是隐藏，所以当页面转场发生时，实际4个事件被触发了，每个页面有两个： </p>
+		<dl>
+			<dt>在page显示之前 <code>pagebeforeshow</code></dt>
+			<dd>转场之前，页面被显示时触发.</dd>
+			
+			<dt>在page隐藏之前 <code>pagebeforehide</code></dt>
+			<dd>转场之前，页面被隐藏时触发.</dd>
+			
+			<dt>在page显示时 <code>pageshow</code></dt>
+			<dd>转场之后，页面被显示时触发.</dd>
+			
+			<dt>在page隐藏时<code>pagehide</code></dt>
+			<dd>转场之后，页面被隐藏时触发.</dd>
+			
+		</dl>
+		
+		<p>注意：这4个事件都引用了”上一页“，或”下一页“，这取决于哪一页被显示或者隐藏，以及”上一页“或者”下一页“是否存在。（第一个被显示的page并没“上一页”可以引用，但是同样会引用一个空的Jquery对象 ），你可以通过将第二个参数作为一个绑定的回调函数访问这一引用: </p>
+		<pre>
+		<code>
+$('div').live('pageshow',function(event, ui){
+  alert('This page was just hidden: '+ ui.prevPage);
+});
+
+$('div').live('pagehide',function(event, ui){
+  alert('This page was just shown: '+ ui.nextPage);
+});
+		</code>
+		</pre>
+		<p>而且，务必在 Jquery Mobile 执行前绑定这些函数，以使他们在初始化页面加载时被调用。在 mobileinit 事件的处理函数中使用它们既可，详情参 <a href="globalconfig.html">global config</a>.
+		<h2>页面初始化事件 Page initialization events</h2>
+		
+		<p>jQuery Mobile 会自动初始化插件基于页面渐进增强机制。 例如： <code>input</code> 增加 <code>type=“range”</code> 属性将会自动渲染成 slider 组件.</p>
+		
+		<p>这些自动初始化的行为是受"page"插件控制的，它在执行前后部署部署事件，允许你在初始化前后操作页面，或者甚至自己提供初始化行为，禁止自动初始化。注以下的页面初始化事件在每个“page”只被触发一次，与 显示 隐藏 事件不同，在页面显示或者隐藏的每次，它们都会被触发.</p>	
+			
+		<dl>
+			<dt><code>pagebeforecreate</code></dt>
+			<dd>页面初始化时，初始化之前触发.</dd>
+			<dt><code>pagecreate</code></dt>
+			<dd>页面初始化时，初始化之后触发.</dd>
+		</dl>	
+		
+		
+				<pre>
+		<code>
+$('#aboutPage').live('pagebeforecreate',function(event){
+  alert('这个页面刚刚加载进DOM中,还未初始化!');
+});
+
+$('#aboutPage').live('pagecreate',function(event){
+  alert('这个页面已经被jQuery Mobile初始化!');
+});
+		</code>
+		</pre>
+		
+		<p>注意：通过绑定 <code>pagebeforecreate</code> 事件后返回 <code>false</code>, 你将禁止页面插件的自己工作.</p>
+		
+<pre>
+		<code>
+$('#aboutPage').live('pagebeforecreate',function(event){
+  //run your own enhancement scripting here...
+  return false;
+});
+
+		</code>
+		</pre>		
+		
+		
+		<h2>动画事件 Animation Events</h2>
+		<p>jQuery Mobile 提供了 <code>animationComplete</code> 插件, 你可以利用他它来添加或移除依赖于css的转场效果.</p>
+
+    </div><!--/content-secondary -->		
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>More in this section</h3>
+				
+				<ul data-role="listview"  data-dividertheme="d">
+                    
+                    <li data-role="list-divider">API</li>
+                    <li><a href="../../docs/api/globalconfig.html">默认配置</a></li>
+                    <li ><a href="../../docs/api/events.html">事件</a></li>
+                    <li><a href="../../docs/api/methods.html">方法</a></li>
+                    <li><a href="../../docs/api/mediahelpers.html">响应布局</a></li> 
+                    <li><a href="../../docs/api/themes.html">主题</a></li>
+	
+				</ul>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>

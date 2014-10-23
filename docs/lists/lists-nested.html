@@ -1,0 +1,131 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 嵌套列表</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f">
+		<h1>嵌套列表</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+            <p>嵌套列表主要用于多层级信息的级联显示，如省市区信息的级联显示。给一个列表项嵌入一个ul或ol，就可以创建一个嵌套列表。当点击列表项时，框架会自动生成一个新的使用列表项名称作为页面标题的page组件来显示其子列表。你可以嵌套若干级列表，所有嵌套关系生成的新的page组件都有框架自动控制。</p>
+            <h2>嵌套列表</h2>
+		<ul data-role="listview" data-inset="true">
+			<li>
+				Animals
+				<ul data-inset="true">
+					<li>Pets
+						<ul data-inset="true">
+							<li><a href="#">Canary</a></li>
+							<li><a href="#">Cat</a></li>
+							<li><a href="#">Dog</a></li>
+							<li><a href="#">Gerbil</a></li>
+							<li><a href="#">Iguana</a></li>
+							<li><a href="#">Mouse</a></li>
+						</ul>
+					</li>
+					<li data-inset="true">Farm animals
+						<ul>
+							<li><a href="#">Chicken</a></li>
+							<li><a href="#">Cow</a></li>
+							<li><a href="#">Duck</a></li>
+							<li><a href="#">Horse</a></li>
+							<li><a href="#">Pig</a></li>
+							<li><a href="#">Sheep</a></li>
+						</ul>
+					</li>
+					<li data-inset="true">Wild animals
+						<ul>
+							<li><a href="#">Aardvark</a></li>
+							<li><a href="#">Alligator</a></li>
+							<li><a href="#">Ant</a></li>
+							<li><a href="#">Bear</a></li>
+							<li><a href="#">Beaver</a></li>
+							<li><a href="#">Cougar</a></li>
+							<li><a href="#">Dingo</a></li>
+							<li><a href="#">Eagle</a></li>
+							<li><a href="#">Elephant</a></li>
+							<li><a href="#">Ferret</a></li>
+							<li><a href="#">Frog</a></li>
+							<li><a href="#">Giraffe</a></li>
+							<li><a href="#">Lion</a></li>
+							<li><a href="#">Monkey</a></li>
+							<li><a href="#">Panda bear</a></li>
+							<li><a href="#">Polar bear</a></li>
+							<li><a href="#">Tiger</a></li>
+							<li><a href="#">Zebra</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+
+				Colors
+				<ul data-inset="true">
+					<li><a href="#">Blue</a></li>
+					<li><a href="#">Green</a></li>
+					<li><a href="#">Orange</a></li>
+					<li><a href="#">Purple</a></li>
+					<li><a href="#">Red</a></li>
+					<li><a href="#">Yellow</a></li>
+					<li><a href="#">Violet</a></li>
+				</ul>
+			</li>
+			<li>
+				Vehicles
+
+				<ul data-inset="true">
+					<li>Cars</li>
+					<li>Planes</li>
+					<li>Construction</li>
+				</ul>
+			</li>
+		</ul>
+		</div><!--/content-primary -->		
+
+		<div class="content-secondary">
+
+			<div data-role="collapsible" data-collapsed="true" >
+
+					<h3>导航</h3>
+						<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+						</ul>
+                        <script>
+                            $("#navlist").load("nav.html", function() {
+                                var p = $.mobile.path.parseUrl(window.location.href).filename;
+                                $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                                $("#navlist").listview('refresh');
+                            });
+                        </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+
+	<div data-role="footer" class="footer-docs" >
+			<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+	</div>
+
+	</div><!-- /page -->
+
+	</body>
+	</html>

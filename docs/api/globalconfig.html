@@ -1,0 +1,178 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 默认配置</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="zh-cn" http-equiv="Content-Language">
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+    
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+	
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-interior">
+
+	<div data-role="header" data-theme="f">
+		<h1>默认配置</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">
+		主页</a>
+	</div><!-- /header -->
+
+	<div data-role="content" >
+		<div class="content-primary">
+		
+			<h2>jQuery Mobile&#39;s自动初始化机制</h2>
+			<p>和其他jQuery 项目不同,jQuery 、jQuery UI, jQuery Mobile会自动调用渐进增强技术(远早于
+			document.ready 事件). 这些特性会基于Jquery 
+			Mobile的默认配置应用，是针对默认的情形设计的，他可能符合你的需求，也可能不符合，但它很容易设置.</p>
+			
+			<h3>mobileinit 事件</h3>
+			<p>当jQuery Mobile开始执行的时候, <code>document</code> 的 <code>mobileinit</code>
+			事件就会的被触发, 你可以绑定其他的行为来替换此事件.</p>
+			
+			<pre>
+				<code>
+$(document).bind(&quot;mobileinit&quot;, function(){
+  //apply overrides here
+});
+				</code>
+			</pre>
+			
+			<p>因为 <code>mobileinit</code> 
+			事件是在加载后就马上触发，所以如果你要替换它，那么你的事件得先于他加载，引入此JS文件在jquery-mobile文件之前:</p>
+
+			<pre>
+				<code>
+&lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+<strong>&lt;script src=&quot;custom-scripting.js&quot;&gt;&lt;/script&gt;</strong>
+&lt;script src=&quot;jquery-mobile.js&quot;&gt;&lt;/script&gt;
+				</code>
+			</pre>			
+			
+			<p>在事件内部, 你可以通过 <code>$.extend</code> 扩展功能来扩展 <code>$.mobile</code> 
+			方法:</p>
+			
+			<pre>
+				<code>
+$(document).bind(&quot;mobileinit&quot;, function(){
+  $.extend(  $.mobile , {
+    <strong>foo: bar</strong>
+  });
+});
+				</code>
+			</pre>
+			
+			<p>或则单独设置:</p>
+			<pre>
+				<code>
+$(document).bind(&quot;mobileinit&quot;, function(){
+  <strong>$.mobile.foo = bar;</strong>
+});
+				</code>
+			</pre>
+			
+	
+		<h2>配置选项</h2>
+		<p>以下的默认配置可以通过 <code>$.mobile</code> 对象重新配置:</p>
+			
+<dl>
+	<dt>ns (<em>字符</em>, 默认: &quot;&quot;):</dt> 
+	<dd>
+	按照data-属性格式安排的命名空间，例如：data-role,可以设置为任何东西，默认为空字符串。如果你包含一个面包屑的话用起来会比较明晰，比如 
+	mynamespace-&quot;,会映射到 <code>data-mynamespace-foo=&quot;...&quot;.</code>.
+		<p><strong>注意:</strong> 如果你使用data-属性命名空间，那么你需要重新定义你的css主题文件内容. 
+		其选择器应包含你的新命名:
+		<pre><code>
+.ui-mobile [data-<strong>mynamespace-</strong>role=page], .ui-mobile [data-<strong>mynamespace-</strong>role=dialog], .ui-page { ...
+		</code></pre>
+		</p>
+	</dd>
+	
+	<dt>subPageUrlKey (<em>字符</em>, 默认: &quot;ui-page&quot;):</dt>
+	<dd>这个参数用来指向组件产生的子页面（比如生成的嵌套的列表）. 转义成 <em>example.html<strong>ui-page=</strong>subpageIdentifier</em>. 
+	框架会把 hash 表中 ui-page= 之前的URL 向子页面发出AJAX请求.</dd>
+	
+	<dt>nonHistorySelectors (<em>字符</em>, 默认: &quot;dialog&quot;):</dt>
+	<dd>对于带有 data-rel 属性的链接，或 data-role 属性的页面，如果选择器与之匹配，则他们不会在历史记录中被追踪 
+	(即它们不会在location.hash中被更新，也不能加入到收藏夹.</dd>
+	
+	
+	<dt>activePageClass (<em>字符</em>, 默认: &quot;ui-page-active&quot;):</dt> 
+	<dd>给当前页面(包括转场中的) 分配class</dd>
+	
+	
+	<dt>activeBtnClass (<em>字符</em>, 默认: &quot;ui-page-active&quot;):</dt> 
+	<dd>给活动状态的按钮分配class值，该class值必须在css框架中存在.</dd>
+	
+	<dt>ajaxEnabled (<em>boolean</em>, 默认: true):</dt> 
+	<dd>jQuery Mobile 默认使用ajax来处理链接的点击事件,设为false则会采用传统的http请求.</dd>
+	
+	<dt>useFastClick (<em>boolean</em>, 默认: true):</dt> 
+	<dd>当触摸或轻击是触发的ajax动作, 此选项使用 jQuery Mobile的 <code>vclick</code>
+	事件,在支持触摸的设备上略有延迟, 在转场的时候保持地址栏隐藏. 当被禁止时，就变成普通的 <code>click</code> 事件. 
+	在非触摸设备上此事件无效，他也可能会影响你对click事件的绑定</dd>
+
+
+	<dt>hashListeningEnabled (<em>boolean</em>, 默认: true):</dt> 
+	<dd>Jquery Mobile 会自动监听与处理 location.hash的改变。禁用它会防止Jquery Mobile处理
+	location.hash的改变，使你可以自己处理他们，或者在文档中用完整的链接地址指到一个特定的id值上.</dd>
+
+	<dt>defaultPageTransition (<em>字符</em>, 默认: &#39;slide&#39;):</dt> 
+	<dd>设置默认的ajax转场效果. 设置成“none”则没有任何效果.</dd>
+	
+	<dt>defaultDialogTransition (<em>字符</em>, 默认: &#39;pop&#39;):</dt> 
+	<dd>设置弹出层的ajax效果. 设置成&quot;none&quot;则没有任何效果.</dd>
+
+	<dt>minScrollBack (<em>字符</em>, 默认: 150):</dt> 
+	<dd>在放回页面的时候会被记住，最小滚动距离. </dd>
+	
+	<dt>loadingMessage (<em>字符</em>, 默认: &quot;loading&quot;):</dt> 
+	<dd>设置加载过程中的文本，若设为false则不显示.</dd>
+	
+	<dt>pageLoadErrorMessage (<em>字符</em>, 默认: &quot;Error Loading Page&quot;):</dt> 
+	<dd>设置Ajax加载页面失败时的提示信息.</dd>
+
+	<dt>gradeA (<em>返回 boolean</em>, 默认: 返回 $.support.mediaquery):</dt> 
+	<dd>满足所有条件时返回true.</dd>
+
+
+</dl>
+	</div><!--/content-secondary -->		
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>More in this section</h3>
+				
+				<ul data-role="listview"   data-dividertheme="d">
+			
+					<li data-role="list-divider">API</li>
+					<li ><a href="../../docs/api/globalconfig.html">
+					默认配置</a></li>
+					<li><a href="../../docs/api/events.html">事件</a></li>
+					<li><a href="../../docs/api/methods.html">方法</a></li>
+					<li><a href="../../docs/api/mediahelpers.html">响应布局</a></li> 
+					<li><a href="../../docs/api/themes.html">主题</a></li>
+				</ul>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>© 2011 The jQuery Project.si-tech UID</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>

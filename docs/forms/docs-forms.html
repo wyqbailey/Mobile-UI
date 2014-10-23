@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 表单</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head>
+<body>
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f">
+		<h1>表单</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+
+			<h2>表单结构</h2>
+
+			<p>所有表单应该使用form标签并且具备action属性和method属性以便与服务器通信。</p>
+
+<code>
+&lt;form action=&quot;form.php&quot; method=&quot;post&quot;&gt;
+...
+&lt;/form&gt;
+</code>
+
+	<h2>自动初始化表单元素</h2>
+	<p>默认情况下，框架会自动将表单元素增强成拇指友好的输入组件。</p>
+
+	<h2>阻止自动化初始表单</h2>
+	<p>如果想要原生的表单元素效果，那就给表单元素增加一个属性：data-role=”none”，如：</p>
+	<pre><code>
+&lt;label for=&quot;foo&quot;&gt;
+&lt;select name=&quot;foo&quot; id=&quot;foo&quot; <strong> data-role=&quot;none&quot;</strong>&gt;
+	&lt;option value="a" &gt;A&lt;/option&gt;
+	&lt;option value="b" &gt;B&lt;/option&gt;
+	&lt;option value="c" &gt;C&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+
+			<h2>动态表单布局</h2>
+
+			<p>框架中所有的表单元素都被设计为灵活宽度以便更好地展现在移动设备上。</p>
+			<p>如果屏幕宽度比较小（小于480px），label标签就被渲染成一个块状元素，位于每个表单元素的上方，这样以便节省水平空间。</p>
+			<p>在较宽的屏幕上，label和表单元素就会被放置在同一行，形成两列布局。</p>
+
+
+	</div><!--/content-primary -->
+	
+	<div class="content-secondary">
+		
+		<div data-role="collapsible" data-collapsed="true" >
+			
+				<h3>导航</h3>
+
+				<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+				</ul>
+            <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+		</div>
+	</div>		
+
+</div><!-- /content -->
+
+<div data-role="footer" class="footer-docs" >
+		<p>&copy; 2011 si-tech UID</p>
+			<p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+</div>
+	
+</div><!-- /page -->
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Mobile UI - 固定的底部导航栏</title>
+	<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+    <link rel="apple-touch-icon" href="../../logo.png" />
+	<script src="../../js/jquery.js"></script>
+
+	<script src="../_assets/js/jqm-docs.js"></script>
+	<script src="../../js/jquery.mobile-1.0b1.js"></script>
+	<script src="../../js/iscroll.js"></script>
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+		<div data-role="header" data-theme="f" data-position="fixed">
+		<h1>固定的底部导航栏</h1>
+		<a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary">
+				<p>本页面展示了固定的底部导航栏效果。在页面下部的底部栏（footer）中嵌套了一个导航栏（navbar），当你点击其中的导航按钮进行页面切换时，底部导航栏的位置保持不变。</p>
+            <p>用法：在导航栏链接的3个页面中都是用同样的底部导航栏结构，如下：</p>
+            <pre>
+<code>
+   &lt;div data-role=&quot;footer&quot; data-id=&quot;foo1&quot; data-position=&quot;fixed&quot;&gt;
+     &lt;div data-role=&quot;navbar&quot;&gt;
+       &lt;ul&gt;
+         &lt;li&gt;&lt;a href=&quot;footer-persist-a.html&quot; class=&quot;ui-btn-active ui-state-persist&quot;&gt;朋友&lt;/a&gt;&lt;/li&gt;
+         &lt;li&gt;&lt;a href=&quot;footer-persist-b.html&quot;&gt;相册&lt;/a&gt;&lt;/li&gt;
+         &lt;li&gt;&lt;a href=&quot;footer-persist-c.html&quot;&gt;邮件&lt;/a&gt;&lt;/li&gt;
+       &lt;/ul&gt;
+     &lt;/div&gt;&lt;!-- /navbar --&gt;
+    &lt;/div&gt;&lt;!-- /footer --&gt;
+</code>
+            </pre>
+            <p>注意：在底部栏（footer）上调用<code>data-position="fixed"</code> 的同时 ，在需要保持footer一致的页面中，设置footer的 <code>data-id</code> 值相同。 如果你想在转场过后，仍然保持footer中的激活按钮不变，则请为此按钮调用 <code>ui-state-persist</code> 和 <code>ui-btn-active</code>的class。</p>
+
+				
+
+		</div><!--/content-primary -->		
+
+		<div class="content-secondary">
+
+			<div data-role="collapsible" data-collapsed="true" >
+
+					<h3>导航</h3>
+
+							<ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+							</ul>
+                        <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+			</div>
+		</div>		
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-id="foo1" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="footer-persist-a.html" >朋友</a></li>
+				<li><a href="footer-persist-b.html" class="ui-btn-active ui-state-persist">相册</a></li>
+				<li><a href="footer-persist-c.html">邮件</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+
+	</div><!-- /page -->
+
+	</body>
+	</html>

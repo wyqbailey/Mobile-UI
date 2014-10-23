@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mobile UI - bug记录</title>
+<link rel="stylesheet"  href="../../themes/blue/jquery.mobile-1.0b1.css" />
+
+<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
+<link rel="apple-touch-icon" href="../../logo.png" />
+<script src="../../js/jquery.js"></script>
+<script src="../_assets/js/jqm-docs.js"></script>
+<script src="../../js/jquery.mobile-1.0b1.js"></script>
+<script src="../../js/iscroll.js"></script>
+</head>
+<body>
+<div data-role="page" class="type-interior">
+  <div data-role="header" data-theme="f">
+    <h1>bug记录</h1>
+    <a href="../index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">主页</a> </div>
+  <!-- /header -->
+  
+  <div data-role="content">
+    <div class="content-primary">
+      <h3>bug记录规则</h3>
+      <p>
+          <ol>
+            <li>id规则：id以#开头，使用时间戳，格式为YYYYMMDDHHMM，如2011年11月9号15时32分发现的bug，id为#201111091532</li>
+            <li>等级：<br>高（严重错误，如内存溢出、页面假死、逻辑错误、功能无法使用等）；<br>中（一般错误，如兼容性问题、数据不完整、文字错误、响应较慢等，不影响功能使用）；<br>低（优化建议，对系统的优化改进建议）</li>
+            <li>环境：操作系统、浏览器(明确版本)、其他环境说明</li>
+            <li>描述：对bug的产生场景、造成的影响进行描述。</li>
+            <li>完整记录：id+（等级）：[环境]描述</li>
+            <li>处理：已修正的bug使用删除线标记，且在bug下方记录解决方案。</li>
+          </ol>
+      </p>
+      
+      <h3>bug记录</h3>
+      <p>
+         <a href="#201201091640" id="201201091640">#201201091640</a>(低)：[所有浏览器-from niejing]建议对折叠面板组控件增加打开方式的配置，共有两种方式，一种是只能同时打开一个面板，一种是随意打开或关闭任意面板。
+      </p>
+        <p>
+            <del>
+                <a href="#201201091630" id="201201091630">#201201091630</a>(中)：[所有浏览器-from niejing]删除导航栏控件中的某个按钮后，按钮组宽度无法自动补齐，显示怪异。
+            </del>
+         <blockquote>
+            解决方案：对导航栏的删除单独处理，删除某个导航按钮后重新初始化控件。
+          </blockquote>
+      </p>
+      <p>
+         <del>
+          <a href="#201112221426" id="201112221426">#201112221426</a>(高)：[所有浏览器-from wangyi]<br>
+          在工作区页面空白处点击，然后选择删除操作，删除了内容区，之后无法向工作区拖拽控件。
+         </del>
+          <blockquote>
+            解决方案：内容区为拖拽容器，禁止删除。修改删除逻辑，在选中内容区后不显示删除操作，禁止删除动作。
+          </blockquote>
+      </p>
+      <p>
+         <a href="#201111091544" id="201112211640">#201112211640</a>(低)：[所有浏览器-from jinye]建议将控件从工作区拖出的时候也能删除。
+      </p>
+      <p>
+          <del>
+              <a href="#201111091544" id="201112211636">#201112211636</a>(低)：[所有浏览器-from jinye]创建app主界面主内容区的高度不能完美自适应。
+          </del>
+         <blockquote>
+            解决方案：使用绝对定位和js计算，已解决该问题。
+          </blockquote>
+      </p>
+      <p>
+         <a href="#201111091544" id="201111091544">#201111091544</a>(低)：[windows7、所有浏览器]页面文字无法选择和复制。
+      </p>
+      <p>
+         <del>
+          <a href="#201110191423" id="201110191423">#201110191423</a>(低)：[windows7、safari5、chrome12]<br>
+          在长页面上使用鼠标滚轮滚动，滚动很慢且不灵敏。
+         </del>
+          <blockquote>
+            解决方案：由iscroll.js改变浏览器默认行为导致，修改iscroll.js中的wheelDeltaY = e.wheelDeltaY / 12为wheelDeltaY = e.wheelDeltaY / 1。
+          </blockquote>
+      </p>
+	  
+    </div>
+    <!--/content-primary -->
+    
+    <div class="content-secondary">
+      <div data-role="collapsible" data-collapsed="true" >
+        <h3>导航</h3>
+        <ul id="navlist" data-role="listview"  data-dividertheme="d">
+
+        </ul>
+          <script>
+                        $("#navlist").load("nav.html",function(){
+                            var p = $.mobile.path.parseUrl(window.location.href).filename;
+                            $("#navlist>li>a[href='"+p+"']").parent("li").addClass("active");
+                            $("#navlist").listview('refresh');
+                        });
+                    </script>
+      </div>
+    </div>
+  </div>
+  <!-- /content -->
+  
+  <div data-role="footer" class="footer-docs" >
+    <p>&copy; 2011 si-tech UID</p>
+    <p style="float: right;">技术支持：杨沛林(yangpl)&nbsp;&nbsp;&nbsp;王永强(wangyq)&nbsp;&nbsp;&nbsp;汪国庆(wanggq)&nbsp;&nbsp;&nbsp;</p>
+  </div>
+</div>
+<!-- /page -->
+</body>
+</html>
